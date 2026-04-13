@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kit Online de Liquidación — ONE</title>
+  <link rel="icon" href="img/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:    #121214;
+      --border:   #1E1E20;
+      --white:    #FFFFFF;
+      --gold:     #E6C15B;
+      --magenta:  #E378C9;
+      --cyan:     #62D9E2;
+      --lavender: #A8A9C5;
+      --light:    #D1D2E0;
+      --bg:       #F5F5F8;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--black); min-height: 100vh; }
+    h1,h2,h3,h4 { font-family: 'Exo 2', system-ui, sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--light); border-radius: 10px; }
+
+    /* HEADER */
+    .header { background: var(--black); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .hlogo { display: flex; align-items: center; gap: 10px; }
+    .hlogo img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    .htitle { font-family: 'Exo 2', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); letter-spacing: 0.02em; }
+    .htitle span { color: var(--magenta); }
+    .hpill { font-family: 'Exo 2', sans-serif; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--lavender); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); padding: 3px 9px; border-radius: 100px; }
+    .btn-dl { display: inline-flex; align-items: center; gap: 6px; font-family: 'Exo 2', sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--black); background: var(--gold); border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; text-decoration: none; letter-spacing: 0.02em; white-space: nowrap; transition: opacity .15s, box-shadow .15s; }
+    .btn-dl:hover { opacity: .88; box-shadow: 0 0 16px rgba(230,193,91,.4); }
+
+    /* HERO */
+    .hero { background: var(--black); border-bottom: 1px solid var(--border); padding: 28px 24px 24px; }
+    .hero-inner { max-width: 1280px; margin: 0 auto; }
+    .hero h1 { font-size: 2.1rem; font-weight: 800; color: var(--white); line-height: 1.1; }
+    .hero h1 em { color: var(--magenta); font-style: normal; }
+    .hero p { font-size: 0.88rem; color: var(--lavender); max-width: 520px; line-height: 1.65; margin-top: 8px; }
+
+    /* LAYOUT */
+    .layout { max-width: 1280px; margin: 0 auto; padding: 22px 24px 56px; display: grid; grid-template-columns: 210px 1fr; gap: 18px; align-items: start; }
+    @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--white); border: 1px solid var(--light); border-radius: 16px; padding: 10px; position: sticky; top: 78px; }
+    .slabel { font-family: 'Exo 2', sans-serif; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--lavender); padding: 4px 10px 8px; display: block; }
+    .tab-btn { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 10px; border: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.86rem; font-weight: 500; color: var(--lavender); cursor: pointer; transition: all .15s; }
+    .tab-btn:hover { background: var(--bg); color: var(--black); }
+    .tab-btn.active {
+      background: var(--black);
+      color: var(--white);
+      font-weight: 600;
+      position: relative;
+    }
+    .tab-btn.active::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 3px; height: 60%;
+      background: var(--magenta);
+      border-radius: 0 3px 3px 0;
+    }
+    .tab-btn.active .tico { color: var(--magenta); }
+    .tico { font-size: 0.85rem; flex-shrink: 0; width: 16px; text-align: center; }
+
+    /* MOBILE TABS */
+    .mtabs { display: none; overflow-x: auto; gap: 6px; padding-bottom: 2px; margin-bottom: 16px; }
+    @media (max-width: 860px) { .mtabs { display: flex; } }
+    .mtab { flex-shrink: 0; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--light); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--lavender); cursor: pointer; transition: all .15s; }
+    .mtab.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+    /* CARD */
+    .card { background: var(--white); border: 1px solid var(--light); border-radius: 16px; padding: 22px; }
+    .divider { border: none; border-top: 1px solid var(--light); margin: 14px 0; }
+
+    /* STAT CARDS */
+    .stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 14px; }
+    @media (max-width: 700px) { .stat-grid { grid-template-columns: 1fr; } }
+    .scard { background: var(--white); border: 1px solid var(--light); border-radius: 14px; padding: 18px 20px; position: relative; overflow: hidden; }
+    .scard::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .scard.m::before { background: var(--magenta); }
+    .scard.c::before { background: var(--cyan); }
+    .scard.g::before { background: var(--gold); }
+    .slbl { font-family: 'Exo 2', sans-serif; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--lavender); }
+    .sval { font-family: 'Exo 2', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--black); margin-top: 6px; line-height: 1; }
+    .sval.m { color: var(--magenta); }
+    .shint { font-size: 0.72rem; color: var(--lavender); margin-top: 6px; }
+
+    /* SECTION HEADING */
+    .stitle { font-family: 'Exo 2', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--black); }
+    .ssub { font-size: 0.8rem; color: var(--lavender); margin-top: 2px; }
+
+    /* INPUTS */
+    .flabel { display: block; font-family: 'Exo 2', sans-serif; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--lavender); margin-bottom: 5px; }
+    .inp { width: 100%; background: var(--bg); border: 1.5px solid var(--light); border-radius: 10px; padding: 10px 13px; font-family: 'DM Sans', sans-serif; font-size: 0.87rem; color: var(--black); outline: none; transition: border-color .15s, box-shadow .15s; appearance: none; }
+    .inp:focus { border-color: var(--magenta); box-shadow: 0 0 0 3px rgba(227,120,201,.1); }
+    .inp::placeholder { color: var(--lavender); }
+    select.inp { cursor: pointer; }
+
+    /* BUTTONS */
+    .btn-p { font-family: 'Exo 2', sans-serif; font-size: 0.84rem; font-weight: 700; letter-spacing: .04em; background: var(--black); color: var(--white); border: none; border-radius: 10px; padding: 10px 20px; cursor: pointer; transition: opacity .15s, box-shadow .15s; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-p:hover { opacity: .85; box-shadow: 0 4px 14px rgba(18,18,20,.2); }
+    .btn-g { font-family: 'Exo 2', sans-serif; font-size: 0.84rem; font-weight: 600; background: transparent; color: var(--black); border: 1.5px solid var(--light); border-radius: 10px; padding: 10px 20px; cursor: pointer; transition: all .15s; }
+    .btn-g:hover { border-color: var(--black); }
+    .btn-s { font-family: 'Exo 2', sans-serif; font-size: 0.84rem; font-weight: 700; background: var(--cyan); color: var(--black); border: none; border-radius: 10px; padding: 10px 20px; cursor: pointer; transition: opacity .15s; }
+    .btn-s:hover { opacity: .85; }
+    .btn-i { font-family: 'Exo 2', sans-serif; font-size: 0.84rem; font-weight: 600; background: var(--bg); color: var(--lavender); border: 1.5px solid var(--light); border-radius: 10px; padding: 10px 20px; cursor: pointer; display: inline-block; transition: all .15s; }
+    .btn-i:hover { color: var(--black); border-color: var(--black); }
+
+    /* GRIDS */
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .split { display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; }
+    @media (max-width: 700px) { .g2,.g3 { grid-template-columns: 1fr; } }
+    @media (max-width: 960px) { .split { grid-template-columns: 1fr; } }
+    .gap-b { margin-bottom: 12px; }
+    .gap-b-lg { margin-bottom: 20px; }
+    .row-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* RESULT BOXES */
+    .rbox { background: var(--bg); border: 1.5px solid var(--light); border-radius: 12px; padding: 14px 16px; }
+    .rbox.hl { background: var(--black); border-color: var(--black); }
+    .rlbl { font-family: 'Exo 2', sans-serif; font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--lavender); }
+    .rbox.hl .rlbl { color: var(--magenta); }
+    .rval { font-family: 'Exo 2', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--black); margin-top: 5px; }
+    .rbox.hl .rval { color: var(--white); }
+    .rval.neg { color: #DC2626; }
+
+    /* TABLE */
+    .btbl { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .btbl td { padding: 8px 12px; border-bottom: 1px solid var(--light); color: var(--black); }
+    .btbl td:last-child { text-align: right; font-weight: 500; }
+    .btbl tr:last-child td { border-bottom: none; background: var(--black); color: rgba(255,255,255,.75); font-weight: 700; font-family: 'Exo 2', sans-serif; }
+    .btbl tr:last-child td:last-child { color: var(--magenta); }
+    .btbl .neg { color: #DC2626; }
+
+    /* AVISO */
+    .aviso { background: #FFFBEB; border: 1.5px solid #FCD34D; border-radius: 12px; padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start; }
+    .aviso svg { flex-shrink: 0; color: #D97706; margin-top: 1px; }
+    .aviso-t { font-family: 'Exo 2', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #92400E; margin-bottom: 3px; }
+    .aviso p { font-size: 0.8rem; color: #78350F; line-height: 1.55; }
+
+    /* INFO BOXES */
+    .ibox { border: 1.5px solid var(--light); border-radius: 12px; padding: 14px 16px; background: var(--bg); }
+    .ibox-t { font-family: 'Exo 2', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+    .ibox-t.m { color: var(--magenta); }
+    .ibox-t.c { color: #2ab5bf; }
+    .ibox li { font-size: 0.82rem; color: #555; line-height: 1.5; padding: 3px 0 3px 14px; position: relative; list-style: none; }
+    .ibox li::before { content: '›'; position: absolute; left: 0; color: var(--lavender); }
+
+    /* CHECKLIST */
+    .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+    .cl-card { background: var(--white); border: 1px solid var(--light); border-radius: 14px; padding: 18px; position: relative; overflow: hidden; }
+    .cl-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--magenta), var(--cyan)); opacity: .4; }
+    .cl-h { font-family: 'Exo 2', sans-serif; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--black); margin-bottom: 12px; }
+    .cl-item { display: flex; align-items: flex-start; gap: 9px; padding: 4px 0; }
+    .cl-item input { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; accent-color: var(--magenta); cursor: pointer; }
+    .cl-item span { font-size: 0.81rem; color: #555; line-height: 1.45; }
+
+    /* PARAMS */
+    .p-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+    .p-lbl { display: block; font-family: 'Exo 2', sans-serif; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--lavender); margin-bottom: 5px; }
+
+    /* FOOTER */
+    .footer { background: var(--black); border-top: 1px solid var(--border); padding: 16px 24px; margin-top: 0; }
+    .footer-in { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .footer-in img { height: 16px; object-fit: contain; opacity: .45; }
+    .footer-in p { font-size: 0.72rem; color: var(--lavender); }
+
+    .hidden { display: none !important; }
+    .mt-1 { margin-top: 14px; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="hlogo">
+      <img src="img/one-iconocolor.png" alt="ONE" onerror="this.src='img/one-icononegro.png'" />
+      <span class="htitle">Kit Online de <span>Liquidación</span></span>
+      <span class="hpill">ONE</span>
+    </div>
+    <a href="download/manualdeuso.pdf" download class="btn-dl">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Manual de uso
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <h1>Kit Online de <span>Liquidación</span></h1>
+    <p>Estimá liquidaciones mensuales y finales, controlá puntos críticos del proceso laboral y ajustá parámetros sin tocar el código.</p>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <span class="slabel">Navegación</span>
+    <nav id="tabsNav">
+      <button class="tab-btn active" data-tab="dashboard"><span class="tico">▦</span> Resumen</button>
+      <button class="tab-btn" data-tab="mensual"><span class="tico">◷</span> Liq. mensual</button>
+      <button class="tab-btn" data-tab="final"><span class="tico">◈</span> Liq. final</button>
+      <button class="tab-btn" data-tab="checklist"><span class="tico">✓</span> Checklist</button>
+      <button class="tab-btn" data-tab="parametros"><span class="tico">⚙</span> Parámetros</button>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- MOBILE TABS -->
+    <div class="mtabs" id="mobileTabs">
+      <button class="mtab active" data-tab="dashboard">Resumen</button>
+      <button class="mtab" data-tab="mensual">Mensual</button>
+      <button class="mtab" data-tab="final">Final</button>
+      <button class="mtab" data-tab="checklist">Checklist</button>
+      <button class="mtab" data-tab="parametros">Parámetros</button>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="tab-dashboard" class="tab-panel">
+      <div class="stat-grid">
+        <div class="scard m">
+          <div class="slbl">Básico de convenio</div>
+          <div id="cardBasic" class="sval m">$ 0,00</div>
+          <div class="shint">Editable desde Parámetros</div>
+        </div>
+        <div class="scard c">
+          <div class="slbl">Aportes del trabajador</div>
+          <div id="cardAportes" class="sval">0,00%</div>
+          <div class="shint">Suma automática de porcentajes</div>
+        </div>
+        <div class="scard g">
+          <div class="slbl">Contribuciones patronales</div>
+          <div id="cardContribuciones" class="sval">0,00%</div>
+          <div class="shint">Valor de referencia editable</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stitle">Qué resuelve esta herramienta</div>
+        <div class="ssub">Diseñada para capacitación y uso profesional</div>
+        <div class="divider"></div>
+        <div class="g2">
+          <div class="ibox">
+            <div class="ibox-t m">Para el alumno</div>
+            <ul>
+              <li>Esquema claro para no empezar de cero</li>
+              <li>Práctica con casos reales o simulados</li>
+              <li>Comprende qué impacta en el neto, aportes y liquidación final</li>
+            </ul>
+          </div>
+          <div class="ibox">
+            <div class="ibox-t c">Para vos como capacitadora</div>
+            <ul>
+              <li>Agrega valor al curso sin planillas rígidas</li>
+              <li>Actualizable cambiando parámetros y textos</li>
+              <li>Soporte didáctico y recurso profesional posterior</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="aviso mt-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div>
+          <div class="aviso-t">Importante</div>
+          <p>Esta herramienta es de apoyo técnico y educativo. No reemplaza la revisión normativa, convencional, jurisprudencial ni la reglamentación vigente. La estructura con parámetros editables existe para poder adaptarse a esos cambios.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENSUAL -->
+    <div id="tab-mensual" class="tab-panel hidden">
+      <div class="split">
+        <div class="card">
+          <div class="stitle">Liquidación mensual</div>
+          <div class="ssub">Estimación base adaptable a distintos convenios y criterios</div>
+          <div class="divider"></div>
+
+          <div class="g2 gap-b">
+            <div><label class="flabel">Nombre del caso</label><input id="mNombre" class="inp" placeholder="Ej.: Administrativo A" /></div>
+            <div><label class="flabel">Categoría / referencia</label><input id="mCategoria" class="inp" placeholder="Ej.: Adm. A" /></div>
+          </div>
+          <div class="g3 gap-b">
+            <div><label class="flabel">Básico</label><input id="mBasico" type="number" step="0.01" class="inp" /></div>
+            <div><label class="flabel">Antigüedad (años)</label><input id="mAntiguedadAnios" type="number" step="1" class="inp" value="0" /></div>
+            <div><label class="flabel">Días trabajados</label><input id="mDiasTrabajados" type="number" step="1" class="inp" value="30" /></div>
+          </div>
+          <div class="g3 gap-b">
+            <div><label class="flabel">Horas extra 50%</label><input id="mHoras50" type="number" step="0.01" class="inp" value="0" /></div>
+            <div><label class="flabel">Horas extra 100%</label><input id="mHoras100" type="number" step="0.01" class="inp" value="0" /></div>
+            <div><label class="flabel">Comisiones / variables</label><input id="mVariables" type="number" step="0.01" class="inp" value="0" /></div>
+          </div>
+          <div class="g3 gap-b-lg">
+            <div><label class="flabel">Bono remunerativo</label><input id="mBonoRem" type="number" step="0.01" class="inp" value="0" /></div>
+            <div><label class="flabel">Bono no remunerativo</label><input id="mBonoNoRem" type="number" step="0.01" class="inp" value="0" /></div>
+            <div><label class="flabel">Otros descuentos</label><input id="mOtrosDescuentos" type="number" step="0.01" class="inp" value="0" /></div>
+          </div>
+          <div class="row-btns">
+            <button id="btnCalcularMensual" class="btn-p">Calcular</button>
+            <button id="btnCopiarMensual" class="btn-g">Copiar resumen</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stitle">Resultado</div>
+          <div class="ssub">Vista orientativa del caso cargado</div>
+          <div class="divider"></div>
+          <div class="g2 gap-b">
+            <div class="rbox"><div class="rlbl">Remunerativo</div><div id="rRemunerativo" class="rval">$ 0,00</div></div>
+            <div class="rbox"><div class="rlbl">No remunerativo</div><div id="rNoRemunerativo" class="rval">$ 0,00</div></div>
+            <div class="rbox"><div class="rlbl">Descuentos</div><div id="rDescuentos" class="rval neg">$ 0,00</div></div>
+            <div class="rbox hl"><div class="rlbl">Neto estimado</div><div id="rNeto" class="rval">$ 0,00</div></div>
+          </div>
+          <div style="border:1px solid var(--light); border-radius:10px; overflow:hidden;">
+            <table class="btbl"><tbody id="mensualBreakdown"></tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINAL -->
+    <div id="tab-final" class="tab-panel hidden">
+      <div class="split">
+        <div class="card">
+          <div class="stitle">Liquidación final</div>
+          <div class="ssub">Práctica de lógica de cálculo y comparación de escenarios</div>
+          <div class="divider"></div>
+
+          <div class="g2 gap-b">
+            <div>
+              <label class="flabel">Tipo de egreso</label>
+              <select id="fTipo" class="inp">
+                <option value="renuncia">Renuncia</option>
+                <option value="despido_sin_causa">Despido sin causa</option>
+                <option value="despido_con_causa">Despido con causa</option>
+              </select>
+            </div>
+            <div><label class="flabel">Mejor remuneración mensual</label><input id="fMejorRem" type="number" step="0.01" class="inp" value="0" /></div>
+          </div>
+          <div class="g3 gap-b">
+            <div><label class="flabel">Fecha de ingreso</label><input id="fIngreso" type="date" class="inp" /></div>
+            <div><label class="flabel">Fecha de egreso</label><input id="fEgreso" type="date" class="inp" /></div>
+            <div><label class="flabel">Días trabajados del mes</label><input id="fDiasMes" type="number" step="1" class="inp" value="0" /></div>
+          </div>
+          <div class="g3 gap-b-lg">
+            <div><label class="flabel">Vacaciones no gozadas (días)</label><input id="fVacPend" type="number" step="1" class="inp" value="0" /></div>
+            <div><label class="flabel">Meses SAC proporcional</label><input id="fMesesSac" type="number" step="1" class="inp" value="0" /></div>
+            <div><label class="flabel">Meses de preaviso</label><input id="fPreaviso" type="number" step="1" class="inp" value="1" /></div>
+          </div>
+          <div class="row-btns">
+            <button id="btnCalcularFinal" class="btn-p">Calcular liquidación final</button>
+            <button id="btnCopiarFinal" class="btn-g">Copiar resumen</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stitle">Resultado</div>
+          <div class="ssub">Importes estimativos para práctica profesional</div>
+          <div class="divider"></div>
+          <div class="g2 gap-b">
+            <div class="rbox"><div class="rlbl">Antigüedad computable</div><div id="fAntiguedadCalc" class="rval">0</div></div>
+            <div class="rbox hl"><div class="rlbl">Total estimado</div><div id="fTotal" class="rval">$ 0,00</div></div>
+          </div>
+          <div style="border:1px solid var(--light); border-radius:10px; overflow:hidden; margin-bottom:14px;">
+            <table class="btbl"><tbody id="finalBreakdown"></tbody></table>
+          </div>
+          <div class="aviso">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p style="font-size:.79rem; color:#78350F; line-height:1.55;">Este módulo es deliberadamente paramétrico. Ante reformas o criterios judiciales, revisá siempre los parámetros antes del uso profesional.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST -->
+    <div id="tab-checklist" class="tab-panel hidden">
+      <div class="card" style="margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+        <div>
+          <div class="stitle">Checklist profesional de control</div>
+          <div class="ssub">Tildá cada punto a medida que avanzás</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span id="checkProgress" style="font-family:'Exo 2',sans-serif; font-size:0.78rem; font-weight:700; color:var(--magenta);">0 completados</span>
+          <div style="width:120px; height:6px; background:var(--light); border-radius:10px; overflow:hidden;">
+            <div id="checkBar" style="height:100%; width:0%; background:linear-gradient(90deg,var(--magenta),var(--cyan)); border-radius:10px; transition:width .3s;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cl-grid" id="checklistGrid"></div>
+    </div>
+
+    <!-- PARÁMETROS -->
+    <div id="tab-parametros" class="tab-panel hidden">
+
+      <div class="card" style="margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+        <div>
+          <div class="stitle">Parámetros editables</div>
+          <div class="ssub">Los cambios se guardan en tu navegador. Podés exportar e importar tu configuración.</div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button id="btnGuardarParams" class="btn-p">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Guardar
+          </button>
+          <button id="btnRestaurar" class="btn-g">Restaurar base</button>
+          <button id="btnExportar" class="btn-s">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Exportar JSON
+          </button>
+          <label class="btn-i">
+            Importar JSON
+            <input id="importFile" type="file" accept="application/json" style="display:none;" />
+          </label>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+          <span style="width:10px; height:10px; border-radius:50%; background:var(--magenta); display:inline-block; flex-shrink:0;"></span>
+          <span style="font-family:'Exo 2',sans-serif; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--lavender);">Remuneración y adicionales</span>
+        </div>
+        <div class="p-grid" id="paramsContainer"></div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-in">
+    <img src="img/one-logoletra.png" alt="ONE" onerror="this.style.display='none'" />
+    <p>Kit Online de Liquidación — Herramienta de apoyo técnico y educativo. No reemplaza asesoramiento profesional.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
