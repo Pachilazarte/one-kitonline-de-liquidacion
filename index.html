@@ -8,19 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --ink:      #000000;
-      --dark:     #252525;
-      --silver:   #c0c0c0;
-      --white:    #ffffff;
-      --offwhite: #faf1f1;
-      --navy:     #020f27;
-      --ocean:    #0b4a6e;
-      --cyan:     #22d9df;
-      --ice:      #1effff;
-      --green:    #6b9432;
-      --lime:     #c1ff72;
-      --bg:       #f4f4f6;
-      --border:   #e0e0e6;
+      --ink:#000; --dark:#252525; --silver:#c0c0c0; --white:#fff; --offwhite:#faf1f1;
+      --navy:#020f27; --ocean:#0b4a6e; --cyan:#22d9df; --ice:#1effff;
+      --green:#6b9432; --lime:#c1ff72; --bg:#f4f4f6; --border:#e0e0e6;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
@@ -29,36 +19,29 @@
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--silver); border-radius: 8px; }
 
-    /* ── HEADER ── */
     .header { background: var(--navy); border-bottom: 2px solid var(--ocean); position: sticky; top: 0; z-index: 200; }
     .header-inner { max-width: 1300px; margin: 0 auto; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .hlogo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .hlogo img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+    .hlogo img { height: 50px; width: auto; vertical-align: middle; }
     .htitle { font-family: 'Exo 2', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--white); letter-spacing: .02em; }
-    .htitle em { color: var(--cyan); font-style: normal; }
     .hpill { font-family: 'Exo 2', sans-serif; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--silver); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); padding: 3px 9px; border-radius: 100px; }
     .hactions { display: flex; align-items: center; gap: 8px; }
-    .btn-dl { display: inline-flex; align-items: center; gap: 6px; font-family: 'Exo 2', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--ink); background: var(--lime); border: none; border-radius: 7px; padding: 7px 13px; cursor: pointer; text-decoration: none; letter-spacing: .02em; white-space: nowrap; transition: opacity .15s, box-shadow .15s; }
-    .btn-dl:hover { opacity: .88; box-shadow: 0 0 14px rgba(193,255,114,.4); }
+    .btn-dl { display: inline-flex; align-items: center; gap: 6px; font-family: 'Exo 2', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--ink); background: var(--lime); border: none; border-radius: 7px; padding: 7px 13px; cursor: pointer; text-decoration: none; }
     .update-badge { display: flex; align-items: center; gap: 5px; font-family: 'Exo 2', sans-serif; font-size: 0.62rem; font-weight: 600; color: var(--cyan); background: rgba(34,217,223,.08); border: 1px solid rgba(34,217,223,.25); border-radius: 100px; padding: 3px 9px; white-space: nowrap; }
     .update-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
 
-    /* ── HERO ── */
     .hero { background: var(--navy); border-bottom: 1px solid var(--ocean); padding: 24px 24px 22px; }
     .hero-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
     .hero h1 { font-size: 1.9rem; font-weight: 800; color: var(--white); line-height: 1.1; }
-    .hero h1 em { color: var(--cyan); font-style: normal; }
     .hero p { font-size: 0.85rem; color: var(--silver); max-width: 480px; line-height: 1.65; margin-top: 6px; }
     .hero-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
     .meta-version { font-family: 'Exo 2', sans-serif; font-size: 0.68rem; color: var(--silver); opacity: .6; }
     .meta-updated { font-family: 'Exo 2', sans-serif; font-size: 0.7rem; color: var(--cyan); }
 
-    /* ── LAYOUT ── */
     .layout { max-width: 1300px; margin: 0 auto; padding: 20px 24px 60px; display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: start; }
     @media (max-width: 840px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } }
 
-    /* ── SIDEBAR ── */
     .sidebar { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 8px; position: sticky; top: 74px; }
     .slabel { font-family: 'Exo 2', sans-serif; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--silver); padding: 4px 10px 8px; display: block; }
     .tab-btn { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 9px 11px; border-radius: 9px; border: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.84rem; font-weight: 500; color: #888; cursor: pointer; transition: all .15s; position: relative; }
@@ -69,17 +52,14 @@
     .tico { font-size: 0.78rem; flex-shrink: 0; width: 15px; text-align: center; color: #aaa; }
     .sidebar-sep { border: none; border-top: 1px solid var(--border); margin: 6px 0; }
 
-    /* ── MOBILE TABS ── */
     .mtabs { display: none; overflow-x: auto; gap: 5px; padding-bottom: 2px; margin-bottom: 14px; }
     @media (max-width: 840px) { .mtabs { display: flex; } }
-    .mtab { flex-shrink: 0; padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; color: #888; cursor: pointer; transition: all .15s; }
+    .mtab { flex-shrink: 0; padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; color: #888; cursor: pointer; }
     .mtab.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
 
-    /* ── CARD ── */
     .card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
     .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
 
-    /* ── STAT CARDS ── */
     .stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 12px; }
     @media (max-width: 640px) { .stat-grid { grid-template-columns: 1fr; } }
     .scard { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; position: relative; overflow: hidden; }
@@ -92,70 +72,81 @@
     .sval.cy { color: var(--ocean); }
     .shint { font-size: 0.7rem; color: #aaa; margin-top: 5px; }
 
-    /* SECTION TITLE */
     .stitle { font-family: 'Exo 2', sans-serif; font-size: 1rem; font-weight: 700; color: var(--ink); }
     .ssub { font-size: 0.78rem; color: #888; margin-top: 2px; }
 
-    /* PARAMS VERSION BANNER */
     .params-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; background: rgba(34,217,223,.06); border: 1px solid rgba(34,217,223,.2); border-radius: 10px; margin-bottom: 14px; flex-wrap: wrap; }
     .params-banner-left { display: flex; align-items: center; gap: 8px; }
     .params-banner-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; }
     .params-banner-text { font-family: 'Exo 2', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--ocean); }
     .params-banner-sub { font-size: 0.68rem; color: #888; margin-left: 16px; }
 
-    /* INPUTS */
     .flabel { display: block; font-family: 'Exo 2', sans-serif; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #888; margin-bottom: 4px; }
     .inp { width: 100%; background: var(--bg); border: 1.5px solid var(--border); border-radius: 9px; padding: 9px 12px; font-family: 'DM Sans', sans-serif; font-size: 0.86rem; color: var(--ink); outline: none; transition: border-color .15s, box-shadow .15s; appearance: none; }
     .inp:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(34,217,223,.1); }
     .inp::placeholder { color: #bbb; }
+    .inp:disabled { background: #ebebef; color: #aaa; cursor: not-allowed; }
     select.inp { cursor: pointer; }
 
-    /* BUTTONS */
-    .btn-p { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: .04em; background: var(--navy); color: var(--white); border: none; border-radius: 9px; padding: 9px 18px; cursor: pointer; transition: opacity .15s, box-shadow .15s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-p:hover { opacity: .85; box-shadow: 0 4px 14px rgba(2,15,39,.25); }
-    .btn-g { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 600; background: transparent; color: var(--ink); border: 1.5px solid var(--border); border-radius: 9px; padding: 9px 18px; cursor: pointer; transition: all .15s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-g:hover { border-color: var(--ink); }
-    .btn-cy { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 700; background: var(--cyan); color: var(--navy); border: none; border-radius: 9px; padding: 9px 18px; cursor: pointer; transition: opacity .15s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-cy:hover { opacity: .85; }
-    .btn-li { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 700; background: var(--lime); color: var(--ink); border: none; border-radius: 9px; padding: 9px 18px; cursor: pointer; transition: opacity .15s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-li:hover { opacity: .88; }
-    .btn-outline-i { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 600; background: var(--bg); color: #888; border: 1.5px solid var(--border); border-radius: 9px; padding: 9px 18px; cursor: pointer; display: inline-block; transition: all .15s; }
-    .btn-outline-i:hover { color: var(--ink); border-color: var(--ink); }
+    .btn-p { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: .04em; background: var(--navy); color: var(--white); border: none; border-radius: 9px; padding: 9px 18px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-g { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 600; background: transparent; color: var(--ink); border: 1.5px solid var(--border); border-radius: 9px; padding: 9px 18px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-cy { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 700; background: var(--cyan); color: var(--navy); border: none; border-radius: 9px; padding: 9px 18px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-outline-i { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 600; background: var(--bg); color: #888; border: 1.5px solid var(--border); border-radius: 9px; padding: 9px 18px; cursor: pointer; display: inline-block; }
+    .btn-export-pdf { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 700; background: var(--ocean); color: var(--white); border: none; border-radius: 9px; padding: 9px 18px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
 
-    /* GRIDS */
     .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
     .split { display: grid; grid-template-columns: 1.15fr .85fr; gap: 14px; }
-    @media (max-width: 640px) { .g2,.g3 { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .g2,.g3,.g4 { grid-template-columns: 1fr; } }
     @media (max-width: 920px) { .split { grid-template-columns: 1fr; } }
     .gb { margin-bottom: 10px; }
     .gbl { margin-bottom: 18px; }
     .row-btns { display: flex; gap: 8px; flex-wrap: wrap; }
 
-    /* RESULT BOXES */
+    .form-section-h { display: flex; align-items: center; gap: 8px; font-family: 'Exo 2', sans-serif; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--ocean); margin: 14px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .form-section-h::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; }
+
+    .chk-panel { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: 9px; padding: 8px 12px; margin-top: 4px; }
+    .chk-label { display: flex; align-items: center; gap: 6px; font-size: 0.76rem; color: #555; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .chk-label input { width: 14px; height: 14px; accent-color: var(--cyan); cursor: pointer; }
+    .chk-label input:disabled { cursor: not-allowed; }
+
+    .input-with-label { display: grid; grid-template-columns: 1.4fr 1fr; gap: 6px; }
+    @media (max-width: 500px) { .input-with-label { grid-template-columns: 1fr; } }
+
     .rbox { background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px; }
     .rbox.hl { background: var(--navy); border-color: var(--navy); }
+    .rbox.contrib { background: #fff5e6; border-color: #f6d860; }
+    .rbox.reforma { background: #eef5ff; border-color: #b0d0ff; }
     .rlbl { font-family: 'Exo 2', sans-serif; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #888; }
     .rbox.hl .rlbl { color: var(--cyan); }
+    .rbox.contrib .rlbl { color: #92400e; }
+    .rbox.reforma .rlbl { color: var(--ocean); }
     .rval { font-family: 'Exo 2', sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--ink); margin-top: 5px; }
     .rbox.hl .rval { color: var(--white); }
-    .rval.neg { color: #c0392b; }
+    .rbox.contrib .rval { color: #92400e; font-size: 1.1rem; }
+    .rbox.reforma .rval { color: var(--ocean); font-size: 1.05rem; }
+    .rbox-sub { font-size: 0.72rem; color: #888; margin-top: 3px; }
+    .rbox.hl .rbox-sub { color: rgba(255,255,255,.6); }
 
-    /* TABLE */
     .btbl { width: 100%; border-collapse: collapse; font-size: 0.81rem; }
     .btbl td { padding: 7px 11px; border-bottom: 1px solid var(--border); color: var(--ink); }
     .btbl td:last-child { text-align: right; font-weight: 500; }
     .btbl .neg-td { color: #c0392b; }
     .btbl tr.total-row td { border-bottom: none; background: var(--navy); color: rgba(255,255,255,.8); font-weight: 700; font-family: 'Exo 2', sans-serif; }
     .btbl tr.total-row td:last-child { color: var(--cyan); }
+    .btbl tr.seccion-row td { background: #eef2f7; color: var(--ocean); font-family: 'Exo 2', sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 6px 11px; }
 
-    /* AVISO */
     .aviso { background: #fffbeb; border: 1.5px solid #f6d860; border-radius: 10px; padding: 12px 14px; display: flex; gap: 9px; align-items: flex-start; }
     .aviso svg { flex-shrink: 0; color: #d97706; margin-top: 1px; }
     .aviso-t { font-family: 'Exo 2', sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #92400e; margin-bottom: 2px; }
     .aviso p { font-size: 0.78rem; color: #78350f; line-height: 1.55; }
+    .aviso.reforma { background: #eef5ff; border-color: #b0d0ff; }
+    .aviso.reforma svg { color: var(--ocean); }
+    .aviso.reforma .aviso-t { color: var(--ocean); }
+    .aviso.reforma p { color: #1a3350; }
 
-    /* INFO BOXES */
     .ibox { border: 1.5px solid var(--border); border-radius: 10px; padding: 14px 16px; background: var(--bg); }
     .ibox-t { font-family: 'Exo 2', sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 9px; }
     .ibox-t.cy { color: var(--ocean); }
@@ -163,7 +154,6 @@
     .ibox li { font-size: 0.8rem; color: #555; line-height: 1.5; padding: 3px 0 3px 12px; position: relative; list-style: none; }
     .ibox li::before { content: '›'; position: absolute; left: 0; color: #aaa; }
 
-    /* CHECKLIST */
     .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
     .cl-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 16px; position: relative; overflow: hidden; }
     .cl-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--lime)); opacity: .5; }
@@ -173,17 +163,11 @@
     .cl-item input:checked + span { color: #aaa; text-decoration: line-through; }
     .cl-item span { font-size: 0.79rem; color: #444; line-height: 1.45; transition: color .15s; }
 
-    /* PARAMS GRID */
     .p-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
     .p-lbl { display: block; font-family: 'Exo 2', sans-serif; font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #888; margin-bottom: 4px; }
     .p-section { font-family: 'Exo 2', sans-serif; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--ocean); grid-column: 1/-1; display: flex; align-items: center; gap: 7px; margin-top: 4px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
     .p-section::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; display: inline-block; }
 
-    /* EXPORT BTN */
-    .btn-export-pdf { font-family: 'Exo 2', sans-serif; font-size: 0.82rem; font-weight: 700; background: var(--ocean); color: var(--white); border: none; border-radius: 9px; padding: 9px 18px; cursor: pointer; transition: opacity .15s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-export-pdf:hover { opacity: .85; }
-
-    /* FOOTER */
     .footer { background: var(--navy); border-top: 1px solid var(--ocean); padding: 16px 24px; }
     .footer-in { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .footer-in img { height: 15px; object-fit: contain; opacity: .4; }
@@ -193,25 +177,18 @@
     .mt { margin-top: 12px; }
     .svg-ic { pointer-events: none; }
 
-    .hlogo img {
-    height: 50px; /* Ajusta este valor (40px, 60px, etc.) según tu gusto */
-    width: auto;  /* Mantiene la proporción */
-    vertical-align: middle; /* Lo alinea bien con el texto */
-}
+    .ley-tag { display: inline-block; font-family: 'Exo 2', sans-serif; font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; background: rgba(34,217,223,.12); color: var(--ocean); padding: 2px 7px; border-radius: 100px; margin-left: 6px; vertical-align: middle; border: 1px solid rgba(34,217,223,.3); }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header">
   <div class="header-inner">
-<div class="hlogo">
-  <img src="img/escencial-logoblanco.png" 
-       alt="ONE" 
-       onerror="this.src='img/one-icononegro.png'" 
-       style="height: 50px; width: auto;" /> <span class="htitle">Kit Online de Liquidación</span>
-  <span class="hpill">ONE · Escencial</span>
-</div>
+    <div class="hlogo">
+      <img src="img/escencial-logoblanco.png" alt="ONE" onerror="this.src='img/one-icononegro.png'" />
+      <span class="htitle">Kit Online de Liquidación</span>
+      <span class="hpill">ONE · Escencial</span>
+    </div>
     <div class="hactions">
       <div class="update-badge" id="updateBadge" style="display:none;">
         <span class="update-dot"></span>
@@ -225,12 +202,11 @@
   </div>
 </header>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
     <div>
       <h1>Kit Online de Liquidación</h1>
-      <p>Estimá liquidaciones mensuales y finales, controlá puntos críticos del proceso laboral y ajustá parámetros que se guardan automáticamente.</p>
+      <p>Estimá liquidaciones mensuales y finales por convenio. Incluye Ley 27.742 (Bases) y Ley 27.802 (Modernización Laboral).</p>
     </div>
     <div class="hero-meta">
       <span class="meta-version" id="metaVersion">v —</span>
@@ -239,10 +215,8 @@
   </div>
 </div>
 
-<!-- LAYOUT -->
 <div class="layout">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <span class="slabel">Navegación</span>
     <nav id="tabsNav">
@@ -256,7 +230,6 @@
   </aside>
 
   <main>
-    <!-- MOBILE TABS -->
     <div class="mtabs">
       <button class="mtab active" data-tab="dashboard">Resumen</button>
       <button class="mtab" data-tab="mensual">Mensual</button>
@@ -268,21 +241,9 @@
     <!-- ── DASHBOARD ── -->
     <div id="tab-dashboard" class="tab-panel">
       <div class="stat-grid">
-        <div class="scard cy">
-          <div class="slbl">Básico de convenio</div>
-          <div id="cardBasic" class="sval cy">$ 0,00</div>
-          <div class="shint">Editable desde Parámetros</div>
-        </div>
-        <div class="scard li">
-          <div class="slbl">Aportes del trabajador</div>
-          <div id="cardAportes" class="sval">0,00%</div>
-          <div class="shint">Suma automática</div>
-        </div>
-        <div class="scard nv">
-          <div class="slbl">Contribuciones patronales</div>
-          <div id="cardContribuciones" class="sval">0,00%</div>
-          <div class="shint">Valor de referencia</div>
-        </div>
+        <div class="scard cy"><div class="slbl">Básico de convenio</div><div id="cardBasic" class="sval cy">$ 0,00</div><div class="shint">Editable desde Parámetros</div></div>
+        <div class="scard li"><div class="slbl">Aportes del trabajador</div><div id="cardAportes" class="sval">0,00%</div><div class="shint">Suma automática</div></div>
+        <div class="scard nv"><div class="slbl">Contribuciones patronales</div><div id="cardContribuciones" class="sval">0,00%</div><div class="shint">Valor de referencia</div></div>
       </div>
 
       <div class="card">
@@ -293,17 +254,19 @@
           <div class="ibox">
             <div class="ibox-t cy">Para el alumno</div>
             <ul>
-              <li>Esquema claro para no empezar de cero</li>
-              <li>Práctica con casos reales o simulados</li>
-              <li>Comprende qué impacta en el neto, aportes y liquidación final</li>
+              <li>Selector de convenio con categorías precargadas</li>
+              <li>Liquidación final con TODAS las causales LCT</li>
+              <li>Topes Ley 27.802 aplicados automáticamente</li>
+              <li>Indemnizaciones agravadas Ley 27.742</li>
             </ul>
           </div>
           <div class="ibox">
             <div class="ibox-t li">Para la capacitadora</div>
             <ul>
-              <li>Agrega valor al curso sin planillas rígidas</li>
-              <li>Actualizable cambiando parámetros</li>
-              <li>Soporte didáctico y recurso profesional posterior</li>
+              <li>Cada causal muestra qué conceptos liquidar</li>
+              <li>Base con tope visible para explicar Vizzoti</li>
+              <li>SAC sobre cada indemnizatorio calculado</li>
+              <li>Actualizable por parámetros</li>
             </ul>
           </div>
         </div>
@@ -313,7 +276,7 @@
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         <div>
           <div class="aviso-t">Importante</div>
-          <p>Esta herramienta es de apoyo técnico y educativo. No reemplaza la revisión normativa, convencional, jurisprudencial ni la reglamentación vigente. La estructura paramétrica existe justamente para poder adaptarse a esos cambios.</p>
+          <p>Herramienta de apoyo técnico y educativo. No reemplaza la revisión normativa vigente. Marco aplicado: Ley 20.744 (LCT), Ley 27.742 (Bases) y Ley 27.802 (Modernización Laboral).</p>
         </div>
       </div>
     </div>
@@ -326,34 +289,94 @@
           <div class="ssub">Estimación base adaptable a distintos convenios</div>
           <div class="divider"></div>
 
+          <div class="form-section-h">Datos del caso</div>
           <div class="g2 gb">
             <div><label class="flabel">Nombre del caso</label><input id="mNombre" class="inp" placeholder="Ej.: Caso 1" /></div>
-            <div><label class="flabel">Categoría / referencia</label><input id="mCategoria" class="inp" placeholder="Ej.: Adm. A" /></div>
+            <div><label class="flabel">Convenio aplicable</label><select id="mConvenio" class="inp"></select></div>
           </div>
+          <div class="g2 gb">
+            <div><label class="flabel">Categoría</label><select id="mCategoria" class="inp"></select></div>
+            <div><label class="flabel">Básico (editable)</label><input id="mBasico" type="number" step="1" class="inp" /></div>
+          </div>
+
+          <div class="form-section-h">Régimen patronal (Ley 27.541) <span class="ley-tag">PyME / General</span></div>
+          <div class="g2 gb">
+            <div>
+              <label class="flabel">Régimen de contribuciones</label>
+              <select id="mRegimenPatronal" class="inp">
+                <option value="pyme">Régimen Reducido PyME (inc. b · 24%)</option>
+                <option value="general">Régimen General (inc. a · 26,40%)</option>
+              </select>
+            </div>
+            <div>
+              <label class="flabel">Categoría MIPyME</label>
+              <select id="mCategoriaMipyme" class="inp">
+                <option value="micro">Micro (hasta 7 empleados)</option>
+                <option value="pequena">Pequeña (hasta 30/35)</option>
+                <option value="mediana1">Mediana tramo 1 (hasta 125/165)</option>
+                <option value="mediana2">Mediana tramo 2 (hasta 345/535)</option>
+                <option value="grande">Gran empresa</option>
+              </select>
+            </div>
+          </div>
+          <div class="aviso reforma gb" style="padding:8px 12px; font-size:.75rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div>
+              <p id="regimenInfo" style="line-height:1.5;">—</p>
+            </div>
+          </div>
+
+          <div class="form-section-h">Tiempo trabajado y antigüedad</div>
           <div class="g3 gb">
-            <div><label class="flabel">Básico</label><input id="mBasico" type="number" step="0.01" class="inp" /></div>
             <div><label class="flabel">Antigüedad (años)</label><input id="mAntiguedadAnios" type="number" step="1" class="inp" value="0" /></div>
             <div><label class="flabel">Días trabajados</label><input id="mDiasTrabajados" type="number" step="1" class="inp" value="30" /></div>
+            <div><label class="flabel">Horas extra 50%</label><input id="mHoras50" type="number" step="1" class="inp" value="0" /></div>
           </div>
           <div class="g3 gb">
-            <div><label class="flabel">Horas extra 50%</label><input id="mHoras50" type="number" step="0.01" class="inp" value="0" /></div>
-            <div><label class="flabel">Horas extra 100%</label><input id="mHoras100" type="number" step="0.01" class="inp" value="0" /></div>
-            <div><label class="flabel">Comisiones / variables</label><input id="mVariables" type="number" step="0.01" class="inp" value="0" /></div>
+            <div><label class="flabel">Horas extra 100%</label><input id="mHoras100" type="number" step="1" class="inp" value="0" /></div>
+            <div><label class="flabel">Feriados NO trabajados</label><input id="mFeriadosNT" type="number" step="1" class="inp" value="0" /></div>
+            <div><label class="flabel">Feriados trabajados</label><input id="mFeriadosT" type="number" step="1" class="inp" value="0" /></div>
           </div>
-          <div class="g3 gbl">
-            <div><label class="flabel">Bono remunerativo</label><input id="mBonoRem" type="number" step="0.01" class="inp" value="0" /></div>
-            <div><label class="flabel">Bono no remunerativo</label><input id="mBonoNoRem" type="number" step="0.01" class="inp" value="0" /></div>
-            <div><label class="flabel">Otros descuentos</label><input id="mOtrosDescuentos" type="number" step="0.01" class="inp" value="0" /></div>
+
+          <div class="form-section-h">Licencia por enfermedad</div>
+          <div class="g2 gb">
+            <div><label class="flabel">Días de enfermedad</label><input id="mDiasEnfermedad" type="number" step="1" class="inp" value="0" /></div>
+            <div><label class="flabel">Base de cálculo</label>
+              <select id="mBaseEnfermedad" class="inp">
+                <option value="25">Base 25 (default LCT)</option>
+                <option value="30">Base 30 (convenios con base mensual)</option>
+              </select>
+            </div>
           </div>
+
+          <div class="form-section-h">Comisiones / variables</div>
+          <div class="chk-panel" style="margin-bottom:8px;">
+            <label class="chk-label"><input type="checkbox" id="chkComisiones" /> Agregar comisiones variables</label>
+          </div>
+          <div class="gb">
+            <input id="mVariables" type="number" step="1" class="inp" value="0" placeholder="Monto de comisiones del mes" disabled />
+          </div>
+
+          <div class="form-section-h">Concepto no remunerativo</div>
+          <div class="gb">
+            <input id="mConceptoNR" type="number" step="1" class="inp" value="0" placeholder="Monto no remunerativo (paritaria, asignación, etc.)" />
+          </div>
+          <div class="chk-panel gb">
+            <span style="font-size:.72rem; color:#888; font-family:'Exo 2',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.05em;">Aporta a:</span>
+            <label class="chk-label"><input type="checkbox" id="chkNraportaOS" /> Obra social</label>
+            <label class="chk-label"><input type="checkbox" id="chkNraportaSind" /> Sindicato</label>
+            <label class="chk-label"><input type="checkbox" id="chkNraportaFaecys" /> FAECyS / similar</label>
+          </div>
+
+          <div class="form-section-h">Otros descuentos</div>
+          <div class="input-with-label gbl">
+            <input id="mOtrosDescuentosLabel" type="text" class="inp" placeholder="Detalle (ej. Anticipo, Seguro)" />
+            <input id="mOtrosDescuentos" type="number" step="1" class="inp" value="0" placeholder="Monto" />
+          </div>
+
           <div class="row-btns">
-            <button id="btnCalcularMensual" class="btn-p">
-              <svg class="svg-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg>
-              Calcular
-            </button>
-            <button id="btnExportarMensualPDF" class="btn-export-pdf">
-              <svg class="svg-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Exportar recibo PDF
-            </button>
+            <button id="btnCalcularMensual" class="btn-p">Calcular</button>
+            <button id="btnExportarMensualPDF" class="btn-export-pdf">Exportar recibo PDF</button>
             <button id="btnCopiarMensual" class="btn-g">Copiar texto</button>
           </div>
         </div>
@@ -365,8 +388,18 @@
           <div class="g2 gb">
             <div class="rbox"><div class="rlbl">Remunerativo</div><div id="rRemunerativo" class="rval">$ 0,00</div></div>
             <div class="rbox"><div class="rlbl">No remunerativo</div><div id="rNoRemunerativo" class="rval">$ 0,00</div></div>
-            <div class="rbox"><div class="rlbl">Descuentos</div><div id="rDescuentos" class="rval neg">$ 0,00</div></div>
+            <div class="rbox"><div class="rlbl">Descuentos</div><div id="rDescuentos" class="rval">$ 0,00</div></div>
             <div class="rbox hl"><div class="rlbl">Neto estimado</div><div id="rNeto" class="rval">$ 0,00</div></div>
+          </div>
+          <div class="rbox contrib gb">
+            <div class="rlbl">Contribuciones patronales (informativo · no descuenta del trabajador)</div>
+            <div id="rContribuciones" class="rval">$ 0,00</div>
+          </div>
+          <div style="border:1px solid var(--border); border-radius:9px; overflow:hidden; margin-bottom:12px;">
+            <div style="background:#0b4a6e; color:#fff; padding:6px 12px; font-family:'Exo 2',sans-serif; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em;">
+              Comparativa de regímenes (Ley 27.541 art. 19)
+            </div>
+            <table class="btbl" style="font-size:.76rem;"><tbody id="contribComparativa"></tbody></table>
           </div>
           <div style="border:1px solid var(--border); border-radius:9px; overflow:hidden;">
             <table class="btbl"><tbody id="mensualBreakdown"></tbody></table>
@@ -375,62 +408,180 @@
       </div>
     </div>
 
-    <!-- ── FINAL ── -->
+    <!-- ══════════════════════════════════════════════════════════════════
+         LIQUIDACIÓN FINAL — COMPLETA CON REFORMA
+         ══════════════════════════════════════════════════════════════════ -->
     <div id="tab-final" class="tab-panel hidden">
       <div class="split">
         <div class="card">
-          <div class="stitle">Liquidación final</div>
-          <div class="ssub">Práctica de lógica de cálculo y comparación de escenarios</div>
+          <div class="stitle">Liquidación final <span class="ley-tag">Ley 27.802 + 27.742</span></div>
+          <div class="ssub">Liquidación completa con todas las causales LCT, topes y agravantes de la reforma</div>
           <div class="divider"></div>
 
-          <div class="g2 gb">
+          <!-- CAUSAL -->
+          <div class="form-section-h">Causal de desvinculación</div>
+          <div class="gb">
+            <label class="flabel">Tipo de egreso (seleccioná la causal exacta)</label>
+            <select id="fTipo" class="inp"></select>
+          </div>
+          <div class="aviso reforma gb" style="padding:10px 12px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             <div>
-              <label class="flabel">Tipo de egreso</label>
-              <select id="fTipo" class="inp">
-                <option value="renuncia">Renuncia</option>
-                <option value="despido_sin_causa">Despido sin causa</option>
-                <option value="despido_con_causa">Despido con causa</option>
-              </select>
+              <div class="aviso-t" style="margin-bottom:3px;">Causal seleccionada</div>
+              <p id="fAvisoCausal" style="line-height:1.5;">—</p>
             </div>
-            <div><label class="flabel">Mejor remuneración mensual</label><input id="fMejorRem" type="number" step="0.01" class="inp" value="0" /></div>
+          </div>
+
+          <!-- FECHAS Y BASE -->
+          <div class="form-section-h">Fechas y remuneraciones</div>
+          <div class="g2 gb">
+            <div><label class="flabel">Fecha de ingreso</label><input id="fIngreso" type="date" class="inp" value="2021-10-01" /></div>
+            <div><label class="flabel">Fecha de egreso</label><input id="fEgreso" type="date" class="inp" value="2026-03-30" /></div>
           </div>
           <div class="g3 gb">
-            <div><label class="flabel">Fecha de ingreso</label><input id="fIngreso" type="date" class="inp" /></div>
-            <div><label class="flabel">Fecha de egreso</label><input id="fEgreso" type="date" class="inp" /></div>
-            <div><label class="flabel">Días trab. del mes</label><input id="fDiasMes" type="number" step="1" class="inp" value="0" /></div>
+            <div>
+              <label class="flabel">Remuneraciones fijas</label>
+              <input id="fRemFijos" type="number" step="1" class="inp" value="1286027" />
+              <div style="font-size:.68rem;color:#888;margin-top:3px;">Sueldo + adic. remunerativos</div>
+            </div>
+            <div>
+              <label class="flabel">No rem. indemnizatorios</label>
+              <input id="fNoRemIndem" type="number" step="1" class="inp" value="109390" />
+              <div style="font-size:.68rem;color:#888;margin-top:3px;">Acuerdos paritarios que integran base</div>
+            </div>
+            <div>
+              <label class="flabel">Promedio variables</label>
+              <input id="fPromVariables" type="number" step="1" class="inp" value="305000" />
+              <div style="font-size:.68rem;color:#888;margin-top:3px;">Prom. comisiones últimos 6 meses</div>
+            </div>
           </div>
-          <div class="g3 gbl">
-            <div><label class="flabel">Vacaciones no gozadas (días)</label><input id="fVacPend" type="number" step="1" class="inp" value="0" /></div>
-            <div><label class="flabel">Meses SAC proporcional</label><input id="fMesesSac" type="number" step="1" class="inp" value="0" /></div>
-            <div><label class="flabel">Meses de preaviso</label><input id="fPreaviso" type="number" step="1" class="inp" value="1" /></div>
+
+          <!-- SUELDO PROPORCIONAL -->
+          <div class="form-section-h">Sueldo del mes del egreso</div>
+          <div class="g2 gb">
+            <div><label class="flabel">Días trabajados del mes</label><input id="fDiasMes" type="number" step="1" class="inp" value="30" /></div>
+            <div><label class="flabel">Días servicio año curso (p/vac. prop)</label><input id="fDiasServicioAnio" type="number" step="1" class="inp" value="90" /></div>
           </div>
-          <div class="row-btns">
-            <button id="btnCalcularFinal" class="btn-p">
-              <svg class="svg-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
-              Calcular liquidación final
-            </button>
-            <button id="btnExportarFinalPDF" class="btn-export-pdf">
-              <svg class="svg-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Exportar recibo PDF
-            </button>
+
+          <!-- PREAVISO -->
+          <div class="form-section-h">Preaviso <span class="ley-tag">art. 231 LCT</span></div>
+          <div class="chk-panel gb">
+            <label class="chk-label"><input type="checkbox" id="fPreavisoAuto" checked /> Calcular automáticamente según Ley 27.802</label>
+          </div>
+          <div class="gb">
+            <label class="flabel">Meses de preaviso (manual si desmarcás el auto)</label>
+            <input id="fPreaviso" type="number" step="0.5" class="inp" value="1" disabled />
+            <div style="font-size:.68rem;color:#888;margin-top:3px;">Regla legal: renuncia/prueba = 15 días · ≤5 años = 1 mes · &gt;5 años = 2 meses</div>
+          </div>
+
+          <!-- INTEGRACIÓN -->
+          <div class="form-section-h">Integración mes de despido</div>
+          <div class="gb">
+            <label class="flabel">Días a integrar (desde el despido al fin de mes)</label>
+            <input id="fDiasIntegracion" type="number" step="1" class="inp" value="1" />
+          </div>
+
+          <!-- VACACIONES -->
+          <div class="form-section-h">Vacaciones no gozadas <span class="ley-tag">art. 150 LCT</span></div>
+          <div class="chk-panel gb">
+            <label class="chk-label"><input type="checkbox" id="fVacAuto" checked /> Calcular proporcional al año en curso</label>
+          </div>
+          <div class="gb">
+            <label class="flabel">Días de vacaciones no gozadas (manual)</label>
+            <input id="fVacPend" type="number" step="0.01" class="inp" value="3.5" disabled />
+            <div style="font-size:.68rem;color:#888;margin-top:3px;">Días por antigüedad: &lt;5 = 14 · 5-10 = 21 · 10-20 = 28 · &gt;20 = 35</div>
+          </div>
+
+          <!-- SAC -->
+          <div class="form-section-h">SAC proporcional</div>
+          <div class="chk-panel gb">
+            <label class="chk-label"><input type="checkbox" id="fSacAuto" checked /> Calcular según fecha de egreso</label>
+          </div>
+          <div class="gb">
+            <label class="flabel">Meses de SAC proporcional (manual)</label>
+            <input id="fMesesSac" type="number" step="0.01" class="inp" value="3" disabled />
+          </div>
+
+          <!-- AGRAVANTES -->
+          <div class="form-section-h">Indemnizaciones agravadas <span class="ley-tag">Ley 27.742 art. 245 bis</span></div>
+          <div class="chk-panel gb" style="flex-direction:column; align-items:flex-start; gap:6px;">
+            <label class="chk-label"><input type="checkbox" id="fAgEmbarazo" /> Maternidad / embarazo (art. 178+182 LCT — 13 sueldos)</label>
+            <label class="chk-label"><input type="checkbox" id="fAgMatrimonio" /> Matrimonio (art. 182 LCT — 13 sueldos)</label>
+            <label class="chk-label"><input type="checkbox" id="fAgGremial" /> Representante gremial (Ley 23.551 art. 52 — 13 sueldos)</label>
+            <label class="chk-label"><input type="checkbox" id="fAgDiscrim" /> Acto discriminatorio (art. 245 bis · Ley 27.742)</label>
+            <div style="display:flex; align-items:center; gap:8px; margin-left:20px; margin-top:4px;">
+              <span style="font-size:.74rem; color:#555;">% adicional sobre indem. 245:</span>
+              <input id="fAgDiscrimPct" type="number" step="1" value="50" class="inp" style="width:70px; padding:4px 8px;" />
+              <span style="font-size:.72rem; color:#888;">(default 50%, juez puede elevar hasta 100%)</span>
+            </div>
+          </div>
+
+          <div class="row-btns" style="margin-top:10px;">
+            <button id="btnCalcularFinal" class="btn-p">Calcular liquidación final</button>
+            <button id="btnExportarFinalPDF" class="btn-export-pdf">Exportar recibo PDF</button>
             <button id="btnCopiarFinal" class="btn-g">Copiar texto</button>
           </div>
         </div>
 
+        <!-- RESULTADO FINAL -->
         <div class="card">
-          <div class="stitle">Resultado</div>
-          <div class="ssub">Importes estimativos para práctica profesional</div>
+          <div class="stitle">Resultado liquidación final</div>
+          <div class="ssub" id="fCausalNombre">—</div>
           <div class="divider"></div>
+
+          <!-- Antigüedades y total -->
           <div class="g2 gb">
-            <div class="rbox"><div class="rlbl">Antigüedad computable</div><div id="fAntiguedadCalc" class="rval">0</div></div>
-            <div class="rbox hl"><div class="rlbl">Total estimado</div><div id="fTotal" class="rval">$ 0,00</div></div>
+            <div class="rbox">
+              <div class="rlbl">Antigüedad vacaciones/preaviso</div>
+              <div id="fAntiguedadVac" class="rval">0 año/s</div>
+              <div class="rbox-sub">Años enteros cumplidos</div>
+            </div>
+            <div class="rbox">
+              <div class="rlbl">Antigüedad art. 245</div>
+              <div id="fAntiguedad245" class="rval">0 año/s</div>
+              <div class="rbox-sub">Fracción &gt;3 meses computa año</div>
+            </div>
           </div>
+
+          <div class="rbox hl gb">
+            <div class="rlbl">Total estimado</div>
+            <div id="fTotal" class="rval">$ 0,00</div>
+          </div>
+
+          <!-- Bloque reforma: topes 245 -->
+          <div class="rbox reforma gb">
+            <div class="rlbl">Base de cálculo art. 245 (Ley 27.802)</div>
+            <div style="margin-top:6px; font-size:.79rem; line-height:1.6; color:#1a3350;">
+              <div>Base sin tope: <strong id="fBaseCalculo">$ 0,00</strong></div>
+              <div>Promedio CCT aplicable: <strong id="fPromedioCCT">$ 0,00</strong></div>
+              <div>Tope máximo (3× prom. CCT): <strong id="fTopeMax">$ 0,00</strong></div>
+              <div>Base mínima Vizzoti (67%): <strong id="fBaseMin">$ 0,00</strong></div>
+              <div style="margin-top:4px; padding-top:4px; border-top:1px dashed #b0d0ff;">
+                Base aplicada: <strong id="fBaseConTope" style="color:var(--ocean);">$ 0,00</strong>
+              </div>
+              <div style="font-size:.7rem; color:#555; margin-top:3px;" id="fTopeAplicado">—</div>
+            </div>
+          </div>
+
+          <!-- Cálculos auxiliares -->
+          <div class="g2 gb">
+            <div class="rbox">
+              <div class="rlbl">Días vacaciones</div>
+              <div id="fDiasVacCalc" style="font-family:'Exo 2',sans-serif; font-size:.95rem; font-weight:700; margin-top:4px;">—</div>
+            </div>
+            <div class="rbox">
+              <div class="rlbl">Preaviso aplicado</div>
+              <div id="fPreavisoCalc" style="font-family:'Exo 2',sans-serif; font-size:.95rem; font-weight:700; margin-top:4px;">—</div>
+            </div>
+          </div>
+
           <div style="border:1px solid var(--border); border-radius:9px; overflow:hidden; margin-bottom:12px;">
             <table class="btbl"><tbody id="finalBreakdown"></tbody></table>
           </div>
+
           <div class="aviso">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <p style="font-size:.77rem; color:#78350f; line-height:1.5;">Módulo paramétrico. Revisá siempre los parámetros antes del uso profesional.</p>
+            <p style="font-size:.77rem; color:#78350f; line-height:1.5;">Herramienta paramétrica de uso educativo y profesional. Verificar la normativa vigente al momento de la liquidación real y los valores convencionales aplicables al CCT.</p>
           </div>
         </div>
       </div>
@@ -455,48 +606,32 @@
 
     <!-- ── PARÁMETROS ── -->
     <div id="tab-parametros" class="tab-panel hidden">
-
       <div class="card" style="margin-bottom:12px;">
         <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
           <div>
             <div class="stitle">Parámetros editables</div>
-            <div class="ssub">Se guardan automáticamente en tu navegador (caché local)</div>
+            <div class="ssub">Se guardan automáticamente en el navegador</div>
           </div>
           <div class="row-btns">
-            <button id="btnGuardarParams" class="btn-p">
-              <svg class="svg-ic" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-              Guardar
-            </button>
+            <button id="btnGuardarParams" class="btn-p">Guardar</button>
             <button id="btnRestaurar" class="btn-g">Restaurar base</button>
-            <button id="btnExportar" class="btn-cy">
-              <svg class="svg-ic" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              Exportar JSON
-            </button>
+            <button id="btnExportar" class="btn-cy">Exportar JSON</button>
             <label class="btn-outline-i">Importar JSON<input id="importFile" type="file" accept="application/json" style="display:none;" /></label>
           </div>
         </div>
-
         <div class="params-banner" style="margin-top:14px;">
           <div>
-            <div class="params-banner-left">
-              <span class="params-banner-dot"></span>
-              <span class="params-banner-text" id="paramsBannerText">Parámetros actualizados</span>
-            </div>
+            <div class="params-banner-left"><span class="params-banner-dot"></span><span class="params-banner-text" id="paramsBannerText">Parámetros actualizados</span></div>
             <div class="params-banner-sub" id="paramsBannerSub">Cargando…</div>
           </div>
           <div id="paramsBannerVersion" style="font-family:'Exo 2',sans-serif; font-size:0.68rem; color:#888;"></div>
         </div>
       </div>
-
-      <div class="card">
-        <div class="p-grid" id="paramsContainer"></div>
-      </div>
-
+      <div class="card"><div class="p-grid" id="paramsContainer"></div></div>
     </div>
   </main>
 </div>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-in">
     <img src="img/one-logoletra.png" alt="ONE" onerror="this.style.display='none'" />
