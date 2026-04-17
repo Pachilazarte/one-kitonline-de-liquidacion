@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════
-// KIT ONLINE DE LIQUIDACIÓN — v2026.05
+// KIT ONLINE DE LIQUIDACIÓN — v2026.04
 // Incluye Ley 27.742 (Bases) + Ley 27.802 (Modernización Laboral)
 // Basado en el Excel y PDFs de CPN Ruiz Marcia Ornella, marzo 2026
 // ═══════════════════════════════════════════════════════════════════════════
@@ -176,7 +176,12 @@ const CATEGORIAS_MIPYME = [
 // ═══════════════════════════════════════════════════════════════════════════
 //  PARÁMETROS POR DEFECTO
 // ═══════════════════════════════════════════════════════════════════════════
+// Versión interna de parámetros (se usa para compatibilidad del caché)
 const PARAMS_VERSION = '2026.04';
+
+// Versión PÚBLICA de la app — editar manualmente desde el backend al publicar
+// Esta es la que se ve en el footer
+const APP_VERSION = '1.2.0';
 
 const DEFAULT_PARAMS = {
   convenio_seleccionado: 'comercio',
@@ -407,7 +412,7 @@ function renderMeta() {
   const bannerVer  = document.getElementById('paramsBannerVersion');
   const badge      = document.getElementById('updateBadge');
   const badgeText  = document.getElementById('updateBadgeText');
-  if (verEl) verEl.textContent = 'v' + PARAMS_VERSION;
+  if (verEl) verEl.textContent = 'v' + APP_VERSION;
   if (meta) {
     if (updEl) updEl.textContent = 'Guardado: ' + formatDate(meta.savedAt);
     if (bannerText) bannerText.textContent = 'Parámetros en caché local';
@@ -727,30 +732,30 @@ function calcMensual() {
   }
 
   const rows = [
-    { label:'Básico proporcional',  cant:`${dias} días`,          valUnit: round2(basico/params.divisor_sueldo), val:basicoProp,   tipo:'rem' },
-    { label:'Antigüedad',           cant:`${antiguAn} año/s`,     valUnit: null, val:antiguedad,   tipo:'rem' },
-    { label:'Presentismo',          cant:percent(params.presentismo_pct), valUnit: null, val:presentismo,  tipo:'rem' },
-    { label:'Horas extra 50%',      cant:`${hs50} hs`,            valUnit: round2(valorHora*1.5), val:extra50, tipo:'rem' },
-    { label:'Horas extra 100%',     cant:`${hs100} hs`,           valUnit: round2(valorHora*2),   val:extra100, tipo:'rem' },
+    { lsd:'110000', codigo:'R1001', label:'Sueldo básico',    cant:`${dias} días`,          valUnit: round2(basico/params.divisor_sueldo), baseCalc: basico, val:basicoProp,   tipo:'rem' },
+    { lsd:'160001', codigo:'R1010', label:'Antigüedad',       cant:`${antiguAn} año/s`,     valUnit: null,                                  baseCalc: basicoProp, val:antiguedad, tipo:'rem' },
+    { lsd:'170001', codigo:'R1011', label:'Presentismo',      cant:percent(params.presentismo_pct), valUnit: null,                          baseCalc: round2(basicoProp+antiguedad), val:presentismo,  tipo:'rem' },
+    { lsd:'170002', codigo:'R1030', label:'Horas extra 50%',  cant:`${hs50} hs`,            valUnit: round2(valorHora*1.5),                baseCalc: valorHora,  val:extra50,     tipo:'rem' },
+    { lsd:'170002', codigo:'R1031', label:'Horas extra 100%', cant:`${hs100} hs`,           valUnit: round2(valorHora*2),                  baseCalc: valorHora,  val:extra100,    tipo:'rem' },
   ];
-  if (usarComisiones && vars > 0) rows.push({ label:'Comisiones/variables', cant:'—', valUnit:null, val:vars, tipo:'rem' });
-  if (feriadosNT > 0) rows.push({ label:'Plus feriado no trabajado', cant:`${feriadosNT}`, valUnit:round2(valorDia25-valorDia30), val:plusFeriadoNT, tipo:'rem' });
-  if (feriadosT > 0)  rows.push({ label:'Feriado trabajado (plus)', cant:`${feriadosT}`, valUnit:round2(valorDia25), val:plusFeriadoT, tipo:'rem' });
-  if (diasEnfermedad > 0) rows.push({ label:`Licencia enfermedad (base ${baseEnfermedad})`, cant:`${diasEnfermedad} días`, valUnit:round2(valorDiaEnf), val:enfermedad, tipo:'rem' });
+  if (usarComisiones && vars > 0) rows.push({ lsd:'170003', codigo:'R1050', label:'Comisiones / variables', cant:'—', valUnit:null, baseCalc: null, val:vars, tipo:'rem' });
+  if (feriadosNT > 0) rows.push({ lsd:'110007', codigo:'R1020', label:'Plus feriado no trabajado', cant:`${feriadosNT}`, valUnit:round2(valorDia25-valorDia30), baseCalc: round2(valorDia25-valorDia30), val:plusFeriadoNT, tipo:'rem' });
+  if (feriadosT > 0)  rows.push({ lsd:'110007', codigo:'R1022', label:'Feriado trabajado', cant:`${feriadosT}`, valUnit:round2(valorDia25), baseCalc: valorDia25, val:plusFeriadoT, tipo:'rem' });
+  if (diasEnfermedad > 0) rows.push({ lsd:'110005', codigo:'R1040', label:`Licencia enfermedad (base ${baseEnfermedad})`, cant:`${diasEnfermedad} días`, valUnit:round2(valorDiaEnf), baseCalc: valorDiaEnf, val:enfermedad, tipo:'rem' });
   if (conceptoNR > 0) {
     const aportesTxt = [];
     if (nrAportaOS) aportesTxt.push('OS');
     if (nrAportaSind) aportesTxt.push('Sind');
     if (nrAportaFaecys) aportesTxt.push('FAECyS');
     const sufijo = aportesTxt.length ? ` (aporta ${aportesTxt.join(' · ')})` : '';
-    rows.push({ label:`Concepto no remunerativo${sufijo}`, cant:'—', valUnit:null, val:conceptoNR, tipo:'norem' });
+    rows.push({ lsd:'551000', codigo:'N2000', label:`Concepto no remunerativo${sufijo}`, cant:'—', valUnit:null, baseCalc: null, val:conceptoNR, tipo:'norem' });
   }
-  rows.push({ label:'— Jubilación (SIPA)', cant:percent(params.aporte_jubilacion_pct), valUnit:null, val:-descJub, tipo:'desc' });
-  rows.push({ label:'— PAMI Ley 19.032',   cant:percent(params.aporte_ley_19032_pct), valUnit:null, val:-desc19,  tipo:'desc' });
-  rows.push({ label:'— Obra social',       cant:percent(params.aporte_obra_social_pct), valUnit:null, val:-descOS,  tipo:'desc' });
-  rows.push({ label:'— Sindicato',         cant:percent(params.aporte_sindicato_pct), valUnit:null, val:-descSind,  tipo:'desc' });
-  if (params.aporte_faecys_pct > 0) rows.push({ label:'— FAECyS/similar', cant:percent(params.aporte_faecys_pct), valUnit:null, val:-descFaec, tipo:'desc' });
-  if (otrosD > 0) rows.push({ label:`— ${otrosDLabel}`, cant:'—', valUnit:null, val:-otrosD, tipo:'desc' });
+  rows.push({ lsd:'810000', codigo:'D3001', label:'Jubilación (SIPA)',  cant:percent(params.aporte_jubilacion_pct), valUnit:null, baseCalc: remunerativo, val:-descJub, tipo:'desc' });
+  rows.push({ lsd:'810001', codigo:'D3002', label:'INSSJyP-PAMI Ley 19.032', cant:percent(params.aporte_ley_19032_pct), valUnit:null, baseCalc: remunerativo, val:-desc19,  tipo:'desc' });
+  rows.push({ lsd:'810002', codigo:'D3003', label:'Obra social', cant:percent(params.aporte_obra_social_pct), valUnit:null, baseCalc: baseOS, val:-descOS, tipo:'desc' });
+  rows.push({ lsd:'810004', codigo:'D3010', label:'Sindicato',   cant:percent(params.aporte_sindicato_pct), valUnit:null, baseCalc: baseSind, val:-descSind, tipo:'desc' });
+  if (params.aporte_faecys_pct > 0) rows.push({ lsd:'810004', codigo:'D3011', label:'FAECyS / similar', cant:percent(params.aporte_faecys_pct), valUnit:null, baseCalc: baseFaec, val:-descFaec, tipo:'desc' });
+  if (otrosD > 0) rows.push({ lsd:'810099', codigo:'D3099', label:otrosDLabel, cant:'—', valUnit:null, baseCalc: null, val:-otrosD, tipo:'desc' });
   rows.push({ label:'NETO ESTIMADO', cant:'', valUnit:null, val:neto, tipo:'total' });
 
   document.getElementById('mensualBreakdown').innerHTML = rows.map(r => {
@@ -759,7 +764,7 @@ function calcMensual() {
     const col = r.tipo === 'desc' ? 'class="neg-td"' : '';
     const cant = isTotal ? '' : (r.cant || '—');
     const vu = (isTotal || r.valUnit === null || r.valUnit === undefined) ? '' : money(r.valUnit);
-    return `<tr class="${cls}"><td>${r.label}</td><td style="text-align:center; color:#888; font-size:.76rem;">${cant}</td><td style="text-align:right; color:#888; font-size:.76rem;">${vu}</td><td ${col}>${money(r.val)}</td></tr>`;
+    return `<tr class="${cls}"><td>${r.label}</td><td style="text-align:center; color:var(--mute); font-size:.78rem;">${cant}</td><td style="text-align:right; color:var(--mute); font-size:.78rem;">${vu}</td><td ${col}>${money(r.val)}</td></tr>`;
   }).join('');
 
   lastMensualData = {
@@ -958,40 +963,88 @@ function calcFinal() {
 
   const rows = [];
   rows.push({ seccion: 'LIQUIDACIÓN COMÚN' });
-  rows.push({ label:`Sueldo proporcional mes (${diasMes} días)`, val: sueldoProp, show: sueldoProp > 0 });
-  rows.push({ label:`SAC proporcional (${mesesSac.toFixed(2)} meses / 6)`, val: sacProp, show: sacProp > 0 });
-  rows.push({ label:`Vacaciones no gozadas (${diasVac} días)`, val: vacNoGoz, show: vacNoGoz > 0 });
-  rows.push({ label:'SAC s/Vacaciones no gozadas', val: sacVacNoGoz, show: sacVacNoGoz > 0 });
+  rows.push({
+    lsd:'110000', codigo:'R1001', label:`Sueldo proporcional mes`, cantidad:`${diasMes} días`,
+    baseCalc: round2(remFijos/divisor), val: sueldoProp, tipo:'rem', show: sueldoProp > 0
+  });
+  rows.push({
+    lsd:'120000', codigo:'R1200', label:`SAC proporcional`, cantidad:`${mesesSac.toFixed(2)}/6 m`,
+    baseCalc: baseSac, val: sacProp, tipo:'rem', show: sacProp > 0
+  });
+  rows.push({
+    lsd:'520012', codigo:'N3002', label:`Vacaciones no gozadas`, cantidad:`${diasVac} días`,
+    baseCalc: baseCalculoSinTope, val: vacNoGoz, tipo:'noRemIndem', show: vacNoGoz > 0
+  });
+  rows.push({
+    lsd:'520018', codigo:'N3003', label:'SAC s/Vacaciones no gozadas', cantidad:'',
+    baseCalc: vacNoGoz, val: sacVacNoGoz, tipo:'noRemIndem', show: sacVacNoGoz > 0
+  });
 
   if (causal.preaviso || causal.integracion) {
     rows.push({ seccion: 'PREAVISO E INTEGRACIÓN' });
     if (causal.preaviso) {
-      rows.push({ label:`Preaviso (${mesesPreaviso} mes/es — ${preavisoAutomatico ? 'auto por ley' : 'manual'})`, val: preaviso, show: true });
-      rows.push({ label:'SAC s/Preaviso', val: sacPreaviso, show: sacPreaviso > 0 });
+      rows.push({
+        lsd:'520015', codigo:'N3000', label:`Preaviso${preavisoAutomatico ? ' (auto ley)' : ' (manual)'}`,
+        cantidad:`${mesesPreaviso} m`, baseCalc: baseCalculoSinTope, val: preaviso, tipo:'noRemIndem', show: true
+      });
+      rows.push({
+        lsd:'520017', codigo:'N3001', label:'SAC s/Preaviso', cantidad:'',
+        baseCalc: preaviso, val: sacPreaviso, tipo:'noRemIndem', show: sacPreaviso > 0
+      });
     }
     if (causal.integracion) {
-      rows.push({ label:`Integración mes de despido (${diasIntegracion} días)`, val: integracion, show: integracion > 0 });
-      rows.push({ label:'SAC s/Integración', val: sacIntegracion, show: sacIntegracion > 0 });
+      rows.push({
+        lsd:'520016', codigo:'N3004', label:'Integración mes de despido',
+        cantidad:`${diasIntegracion} días`, baseCalc: baseCalculoSinTope, val: integracion, tipo:'noRemIndem', show: integracion > 0
+      });
+      rows.push({
+        lsd:'520017', codigo:'N3005', label:'SAC s/Integración', cantidad:'',
+        baseCalc: integracion, val: sacIntegracion, tipo:'noRemIndem', show: sacIntegracion > 0
+      });
     }
   }
 
   if (causal.indem245 > 0) {
     const etiquetaArt = causal.indem245 === 0.5 ? 'ART. 247 LCT (50% del 245)' : 'ART. 245 LCT';
     rows.push({ seccion: `INDEMNIZACIÓN POR ANTIGÜEDAD — ${etiquetaArt}` });
-    rows.push({ label:`Indemnización antigüedad: ${antig.paraIndem245} año/s × ${causal.indem245 === 1 ? 'base' : '½ base'} con tope`, val: indemAntig, show: true });
+    rows.push({
+      lsd:'520014', codigo:'N3006',
+      label:`Indemnización por antigüedad`,
+      cantidad:`${antig.paraIndem245} años × ${causal.indem245 === 1 ? '1' : '½'} base`,
+      baseCalc: baseConTope, val: indemAntig, tipo:'noRemIndem', show: true
+    });
   }
 
   if (agravantesList.length > 0) {
     rows.push({ seccion: 'INDEMNIZACIÓN AGRAVADA' });
-    agravantesList.forEach(a => rows.push({ label: a.nombre, val: a.val, show: true }));
-    if (sacAgravada > 0) rows.push({ label: 'SAC s/Indem. agravada', val: sacAgravada, show: true });
+    agravantesList.forEach(a => rows.push({
+      lsd:'520011', codigo:'N3007', label: a.nombre, cantidad:'',
+      baseCalc: baseConTope, val: a.val, tipo:'noRemIndem', show: true
+    }));
+    if (sacAgravada > 0) rows.push({
+      lsd:'52011', codigo:'N3008', label: 'SAC s/Indem. agravada', cantidad:'',
+      baseCalc: indemAgravada, val: sacAgravada, tipo:'noRemIndem', show: true
+    });
   }
 
+  // Totales separados en 3 categorías (como pidió Marcia en el Excel)
+  const totalRem = round2(sueldoProp + sacProp);
+  const totalNoRem = 0; // no rem puros del mes del egreso: 0 (no hay en este flujo)
+  const totalNoRemIndem = round2(
+    vacNoGoz + sacVacNoGoz + preaviso + sacPreaviso +
+    integracion + sacIntegracion + indemAntig + indemAgravada + sacAgravada
+  );
+
+  rows.push({ seccion: 'TOTALES' });
+  rows.push({ label:'Total Remunerativos', val: totalRem, tipo:'subtotal', show: true });
+  if (totalNoRem > 0) rows.push({ label:'Total No Remunerativos', val: totalNoRem, tipo:'subtotal', show: true });
+  rows.push({ label:'Total No Remunerativos Indemnizatorios', val: totalNoRemIndem, tipo:'subtotal', show: true });
   rows.push({ label:'TOTAL ESTIMADO', val: total, isTotal: true });
 
+  // Render pantalla: usa 2 columnas simples (concepto + valor)
   document.getElementById('finalBreakdown').innerHTML = rows.filter(r => r.seccion || r.show !== false).map(r => {
     if (r.seccion) return `<tr class="seccion-row"><td colspan="2">${r.seccion}</td></tr>`;
-    const cls = r.isTotal ? 'total-row' : '';
+    const cls = r.isTotal ? 'total-row' : (r.tipo === 'subtotal' ? 'subtotal-row' : '');
     return `<tr class="${cls}"><td>${r.label}</td><td>${money(r.val)}</td></tr>`;
   }).join('');
 
@@ -1037,42 +1090,78 @@ function buildPDF(data) {
   const referencia   = 'KLP-' + now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + Math.floor(Math.random()*900+100);
   const esM = data.tipo === 'mensual';
 
+  // ── Render de filas con columnas estilo Excel de Marcia ──────────────
   const filas = (data.rows || []).map(r => {
-    if (r.seccion) return `<tr><td colspan="${esM?4:2}" style="background:#e6ecf2;font-weight:700;color:#0b4a6e;padding:5px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.06em;">${r.seccion}</td></tr>`;
-    const neg = r.val !== undefined && r.val < 0;
-    const val = r.val !== undefined ? r.val : r[1];
-    if (esM) {
-      const cant = r.cant || '';
-      const vu = (r.valUnit === null || r.valUnit === undefined) ? '' : money(r.valUnit);
-      const isTotal = r.tipo === 'total';
-      const rowStyle = isTotal ? 'background:#020f27;color:#fff;font-weight:700;' : 'border-bottom:1px solid #e8e8e8;';
-      const valColor = isTotal ? '#22d9df' : (neg?'#c0392b':'#111');
-      return `<tr style="${rowStyle}"><td style="padding:6px 10px; font-size:12px;">${r.label || r[0]}</td><td style="padding:6px 10px; text-align:center; font-size:11px; color:${isTotal?'#a0c4d8':'#666'};">${cant}</td><td style="padding:6px 10px; text-align:right; font-size:11px; color:${isTotal?'#a0c4d8':'#666'};">${vu}</td><td style="padding:6px 10px; text-align:right; font-size:12px; font-weight:500; color:${valColor};">${money(val)}</td></tr>`;
+    // Fila de sección
+    if (r.seccion) return `<tr><td colspan="${esM?7:6}" style="background:#eef2f7;font-weight:700;color:#0b4a6e;padding:6px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-top:2px solid #0b4a6e;">${r.seccion}</td></tr>`;
+
+    const val = r.val !== undefined ? r.val : 0;
+    const isTotal = esM ? (r.tipo === 'total') : r.isTotal;
+    const isSubtotal = r.tipo === 'subtotal';
+    const isDesc = r.tipo === 'desc';
+
+    // Fila de total o subtotal
+    if (isTotal || isSubtotal) {
+      const rowStyle = isTotal
+        ? 'background:#0b4a6e;color:#fff;font-weight:700;'
+        : 'background:#f5f7fa;font-weight:600;color:#0b4a6e;';
+      const valColor = isTotal ? '#22d9df' : '#0b4a6e';
+      return `<tr style="${rowStyle}">
+        <td colspan="${esM?6:5}" style="padding:7px 10px; font-size:${isTotal?12:11}px;">${r.label}</td>
+        <td style="padding:7px 10px; text-align:right; font-size:${isTotal?13:11}px; font-weight:700; color:${valColor};">${money(val)}</td>
+      </tr>`;
     }
-    const isTotal = r.isTotal;
-    const rowStyle = isTotal ? 'background:#020f27;color:#fff;font-weight:700;' : 'border-bottom:1px solid #e8e8e8;';
-    const valColor = isTotal ? '#22d9df' : (neg?'#c0392b':'#111');
-    return `<tr style="${rowStyle}"><td style="padding:6px 10px; font-size:12px;">${r.label || r[0]}</td><td style="padding:6px 10px; text-align:right; font-size:12px; font-weight:500; color:${valColor};">${money(val)}</td></tr>`;
+
+    // Fila normal (con columnas LSD / Código / Concepto / Cant / Base / Rem-NoRem / Desc)
+    const lsd = r.lsd || '';
+    const cod = r.codigo || '';
+    const concept = r.label || '';
+    const cant = r.cant || r.cantidad || '';
+    const base = (r.baseCalc !== null && r.baseCalc !== undefined) ? money(r.baseCalc) : '';
+    const valAbs = Math.abs(val);
+
+    // El valor va en Descuentos si es negativo, si no en Rem/NoRem
+    const remCell = isDesc ? '' : money(valAbs);
+    const descCell = isDesc ? money(valAbs) : '';
+
+    return `<tr style="border-bottom:1px solid #eef2f5;">
+      <td style="padding:5px 8px; font-size:9.5px; color:#6b7f8e; font-family:monospace;">${lsd}</td>
+      <td style="padding:5px 8px; font-size:9.5px; color:#0b4a6e; font-family:monospace; font-weight:600;">${cod}</td>
+      <td style="padding:5px 8px; font-size:10.5px; color:#17252e;">${concept}</td>
+      <td style="padding:5px 8px; text-align:center; font-size:10px; color:#6b7f8e;">${cant}</td>
+      <td style="padding:5px 8px; text-align:right; font-size:10px; color:#6b7f8e;">${base}</td>
+      <td style="padding:5px 8px; text-align:right; font-size:11px; color:#17252e; font-weight:500;">${remCell}</td>
+      <td style="padding:5px 8px; text-align:right; font-size:11px; color:#c0392b; font-weight:500;">${descCell}</td>
+    </tr>`;
   }).join('');
 
-  const headerCols = esM
-    ? `<thead><tr style="background:#020f27;color:#fff;"><td style="padding:7px 10px;font-size:11px;font-weight:700;">Descripción</td><td style="padding:7px 10px;font-size:11px;font-weight:700;text-align:center;">Cantidad</td><td style="padding:7px 10px;font-size:11px;font-weight:700;text-align:right;">Val. unitario</td><td style="padding:7px 10px;font-size:11px;font-weight:700;text-align:right;">Importe (ARS)</td></tr></thead>`
-    : `<thead><tr style="background:#020f27;color:#fff;"><td style="padding:7px 10px;font-size:11px;font-weight:700;">Descripción</td><td style="padding:7px 10px;font-size:11px;font-weight:700;text-align:right;">Importe (ARS)</td></tr></thead>`;
+  // ── Header de tabla: 7 columnas como Excel de Marcia ────────────────
+  const headerCols = `<thead>
+    <tr style="background:#0b4a6e;color:#fff;">
+      <td style="padding:8px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;">LSD AFIP</td>
+      <td style="padding:8px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;">Código</td>
+      <td style="padding:8px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;">Concepto / Detalle</td>
+      <td style="padding:8px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; text-align:center;">Cantidad</td>
+      <td style="padding:8px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; text-align:right;">Base cálculo</td>
+      <td style="padding:8px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; text-align:right;">Rem / No Rem</td>
+      <td style="padding:8px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; text-align:right;">Descuentos</td>
+    </tr>
+  </thead>`;
 
   const contribBlock = (esM && data.contribuciones) ? `
     <div class="section-bar">Contribuciones patronales · Comparativa de regímenes (Ley 27.541 art. 19)</div>
     <div class="resumen-mini">
       <table style="width:100%;">
-        <tr style="background:#e6ecf2;"><td style="font-weight:700; color:#0b4a6e;">Concepto</td><td style="text-align:right; font-weight:700; color:#0b4a6e;">Régimen General (inc. a)</td><td style="text-align:right; font-weight:700; color:#6b9432;">Régimen PyME (inc. b)</td></tr>
-        <tr><td>Jubilación SIPA</td><td style="text-align:right;">${percent(data.contribGeneral.jubilacion_pct)} · ${money(data.contribGeneral.jubilacion)}</td><td style="text-align:right;">${percent(contribPyme.jubilacion_pct)} · ${money(data.contribPyme.jubilacion)}</td></tr>
-        <tr><td>PAMI Ley 19.032</td><td style="text-align:right;">${percent(contribGeneral.pami_pct)} · ${money(data.contribGeneral.pami)}</td><td style="text-align:right;">${percent(contribPyme.pami_pct)} · ${money(data.contribPyme.pami)}</td></tr>
-        <tr><td>Asignaciones Familiares</td><td style="text-align:right;">${percent(contribGeneral.aaff_pct)} · ${money(data.contribGeneral.aaff)}</td><td style="text-align:right;">${percent(contribPyme.aaff_pct)} · ${money(data.contribPyme.aaff)}</td></tr>
-        <tr><td>Fondo Nacional de Empleo</td><td style="text-align:right;">${percent(contribGeneral.fne_pct)} · ${money(data.contribGeneral.fne)}</td><td style="text-align:right;">${percent(contribPyme.fne_pct)} · ${money(data.contribPyme.fne)}</td></tr>
-        <tr style="background:#f9f9f9;"><td style="font-weight:600;">Subtotal Seg. Social</td><td style="text-align:right; font-weight:600;">${percent(contribGeneral.subtotal_ss_pct)} · ${money(data.contribGeneral.subtotal_ss)}</td><td style="text-align:right; font-weight:600;">${percent(contribPyme.subtotal_ss_pct)} · ${money(data.contribPyme.subtotal_ss)}</td></tr>
-        <tr><td>Obra Social (Ley 23.660)</td><td style="text-align:right;">${percent(contribGeneral.obra_social_pct)} · ${money(data.contribGeneral.obra_social)}</td><td style="text-align:right;">${percent(contribPyme.obra_social_pct)} · ${money(data.contribPyme.obra_social)}</td></tr>
-        <tr style="background:#020f27; color:#fff;"><td style="font-weight:700;">TOTAL CONTRIBUCIONES</td><td style="text-align:right; font-weight:700; color:${data.regimenAct==='General'?'#22d9df':'#a0c4d8'};">${percent(contribGeneral.total_pct)} · ${money(data.contribGeneral.total)}</td><td style="text-align:right; font-weight:700; color:${data.regimenAct==='PyME'?'#22d9df':'#a0c4d8'};">${percent(contribPyme.total_pct)} · ${money(data.contribPyme.total)}</td></tr>
+        <tr style="background:#eef2f7;"><td style="font-weight:700; color:#0b4a6e;">Concepto</td><td style="text-align:right; font-weight:700; color:#0b4a6e;">Régimen General (inc. a)</td><td style="text-align:right; font-weight:700; color:#4a9030;">Régimen PyME (inc. b)</td></tr>
+        <tr><td>Jubilación SIPA</td><td style="text-align:right;">${percent(data.contribGeneral.jubilacion_pct)} · ${money(data.contribGeneral.jubilacion)}</td><td style="text-align:right;">${percent(data.contribPyme.jubilacion_pct)} · ${money(data.contribPyme.jubilacion)}</td></tr>
+        <tr><td>PAMI Ley 19.032</td><td style="text-align:right;">${percent(data.contribGeneral.pami_pct)} · ${money(data.contribGeneral.pami)}</td><td style="text-align:right;">${percent(data.contribPyme.pami_pct)} · ${money(data.contribPyme.pami)}</td></tr>
+        <tr><td>Asignaciones Familiares</td><td style="text-align:right;">${percent(data.contribGeneral.aaff_pct)} · ${money(data.contribGeneral.aaff)}</td><td style="text-align:right;">${percent(data.contribPyme.aaff_pct)} · ${money(data.contribPyme.aaff)}</td></tr>
+        <tr><td>Fondo Nacional de Empleo</td><td style="text-align:right;">${percent(data.contribGeneral.fne_pct)} · ${money(data.contribGeneral.fne)}</td><td style="text-align:right;">${percent(data.contribPyme.fne_pct)} · ${money(data.contribPyme.fne)}</td></tr>
+        <tr style="background:#f9fafb;"><td style="font-weight:600;">Subtotal Seg. Social</td><td style="text-align:right; font-weight:600;">${percent(data.contribGeneral.subtotal_ss_pct)} · ${money(data.contribGeneral.subtotal_ss)}</td><td style="text-align:right; font-weight:600;">${percent(data.contribPyme.subtotal_ss_pct)} · ${money(data.contribPyme.subtotal_ss)}</td></tr>
+        <tr><td>Obra Social (Ley 23.660)</td><td style="text-align:right;">${percent(data.contribGeneral.obra_social_pct)} · ${money(data.contribGeneral.obra_social)}</td><td style="text-align:right;">${percent(data.contribPyme.obra_social_pct)} · ${money(data.contribPyme.obra_social)}</td></tr>
+        <tr style="background:#0b4a6e; color:#fff;"><td style="font-weight:700;">TOTAL CONTRIBUCIONES</td><td style="text-align:right; font-weight:700; color:${data.regimenAct==='General'?'#22d9df':'#a0c4d8'};">${percent(data.contribGeneral.total_pct)} · ${money(data.contribGeneral.total)}</td><td style="text-align:right; font-weight:700; color:${data.regimenAct==='PyME'?'#22d9df':'#a0c4d8'};">${percent(data.contribPyme.total_pct)} · ${money(data.contribPyme.total)}</td></tr>
       </table>
-      <div style="font-size:10px;color:#666;padding-top:6px;">Régimen seleccionado para esta liquidación: <strong style="color:#020f27;">${data.regimenAct}</strong>. Importe a cargo del empleador, no se descuenta del trabajador. Ahorro PyME vs General: <strong style="color:#6b9432;">${money(data.contribGeneral.total - data.contribPyme.total)}</strong> por mes.</div>
+      <div style="font-size:10px;color:#6b7f8e;padding-top:6px;">Régimen aplicado: <strong style="color:#0b4a6e;">${data.regimenAct}</strong>. Importe a cargo del empleador. Ahorro PyME vs General: <strong style="color:#4a9030;">${money(data.contribGeneral.total - data.contribPyme.total)}</strong> por mes.</div>
     </div>` : '';
 
   const finalInfoBlock = (!esM) ? `
