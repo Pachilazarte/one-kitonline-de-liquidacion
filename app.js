@@ -54,15 +54,15 @@ const CONVENIOS = {
     nombre: 'Comercio (CCT 130/75)',
     promedioCCT: 1179054.35,
     categorias: {
-      'Maestranza A':     1155795, 'Maestranza B':     1158852, 'Maestranza C':     1169560,
+      'Maestranza A': 1155795, 'Maestranza B': 1158852, 'Maestranza C': 1169560,
       'Administrativo A': 1167268, 'Administrativo B': 1171860, 'Administrativo C': 1176448,
       'Administrativo D': 1190218, 'Administrativo E': 1201690, 'Administrativo F': 1218519,
-      'Cajero A':         1171091, 'Cajero B':         1176448, 'Cajero C':         1183333,
-      'Auxiliar A':       1171091, 'Auxiliar B':       1178740, 'Auxiliar C':       1203985,
-      'Vendedor A':       1174148, 'Vendedor B':       1174878
+      'Cajero A': 1171091, 'Cajero B': 1176448, 'Cajero C': 1183333,
+      'Auxiliar A': 1171091, 'Auxiliar B': 1178740, 'Auxiliar C': 1203985,
+      'Vendedor A': 1174148, 'Vendedor B': 1174878
     },
-    antiguedad:  { tipo: 'fijo', pct: 1 },
-    presentismo: { tipo: 'pct',  pct: 8.33 },
+    antiguedad: { tipo: 'fijo', pct: 1 },
+    presentismo: { tipo: 'pct', pct: 8.33 },
     aporte_os_pct: 3, aporte_sindicato_pct: 2, aporte_faecys_pct: 0.5
   },
   uocra: {
@@ -86,7 +86,7 @@ const CONVENIOS = {
   uatre: {
     nombre: 'UATRE (Rural)', promedioCCT: 1205000,
     categorias: { 'Peón general': 1100000, 'Peón especializado': 1180000, 'Conductor de tractor': 1220000, 'Encargado': 1320000 },
-    antiguedad: { tipo: 'escalonado', escalas: [ { desdeAnio: 0, pct: 1 }, { desdeAnio: 10, pct: 1.5 } ] },
+    antiguedad: { tipo: 'escalonado', escalas: [{ desdeAnio: 0, pct: 1 }, { desdeAnio: 10, pct: 1.5 }] },
     presentismo: { tipo: 'pct', pct: 0 },
     aporte_os_pct: 3, aporte_sindicato_pct: 2, aporte_faecys_pct: 0
   },
@@ -108,26 +108,26 @@ const CONVENIOS = {
 //  CAUSALES DE DESVINCULACIÓN (TODOS los arts. LCT + Ley 27.742)
 // ═══════════════════════════════════════════════════════════════════════════
 const CAUSALES = {
-  renuncia_240:            { grupo:'no_indem',  nombre:'Renuncia (art. 240 LCT)',                         indem245:0,   preaviso:false, integracion:false },
-  mutuo_acuerdo_241:       { grupo:'no_indem',  nombre:'Mutuo acuerdo (art. 241 LCT)',                    indem245:0,   preaviso:false, integracion:false },
-  despido_con_causa_242:   { grupo:'no_indem',  nombre:'Despido con justa causa (art. 242 LCT)',          indem245:0,   preaviso:false, integracion:false },
-  abandono_244:            { grupo:'no_indem',  nombre:'Abandono de trabajo (art. 244 LCT)',              indem245:0,   preaviso:false, integracion:false },
-  plazo_fijo_menor_250:    { grupo:'no_indem',  nombre:'Fin plazo fijo < 1 año (art. 250 LCT)',           indem245:0,   preaviso:false, integracion:false },
-  jubilacion_252:          { grupo:'no_indem',  nombre:'Jubilación (art. 252 LCT)',                       indem245:0,   preaviso:false, integracion:false },
-  periodo_prueba:          { grupo:'no_indem',  nombre:'Baja en período de prueba (art. 92 bis · Ley 27.742)', indem245:0, preaviso:true, integracion:false },
+  renuncia_240: { grupo: 'no_indem', nombre: 'Renuncia (art. 240 LCT)', indem245: 0, preaviso: false, integracion: false },
+  mutuo_acuerdo_241: { grupo: 'no_indem', nombre: 'Mutuo acuerdo (art. 241 LCT)', indem245: 0, preaviso: false, integracion: false },
+  despido_con_causa_242: { grupo: 'no_indem', nombre: 'Despido con justa causa (art. 242 LCT)', indem245: 0, preaviso: false, integracion: false },
+  abandono_244: { grupo: 'no_indem', nombre: 'Abandono de trabajo (art. 244 LCT)', indem245: 0, preaviso: false, integracion: false },
+  plazo_fijo_menor_250: { grupo: 'no_indem', nombre: 'Fin plazo fijo < 1 año (art. 250 LCT)', indem245: 0, preaviso: false, integracion: false },
+  jubilacion_252: { grupo: 'no_indem', nombre: 'Jubilación (art. 252 LCT)', indem245: 0, preaviso: false, integracion: false },
+  periodo_prueba: { grupo: 'no_indem', nombre: 'Baja en período de prueba (art. 92 bis · Ley 27.742)', indem245: 0, preaviso: true, integracion: false },
 
-  despido_sin_causa_245:   { grupo:'indem_245', nombre:'Despido SIN justa causa (art. 245 LCT)',          indem245:1.0, preaviso:true,  integracion:true },
-  despido_indirecto_246:   { grupo:'indem_245', nombre:'Despido indirecto (art. 246 LCT)',                indem245:1.0, preaviso:true,  integracion:true },
-  quiebra_culposa_251:     { grupo:'indem_245', nombre:'Quiebra culposa/dolosa del empleador (art. 251 LCT)', indem245:1.0, preaviso:true,  integracion:true },
-  incapacidad_absoluta:    { grupo:'indem_245', nombre:'Incapacidad absoluta (art. 212 inc. 3 LCT)',      indem245:1.0, preaviso:false, integracion:false },
-  incap_parcial_no_asigna: { grupo:'indem_245', nombre:'Incap. parcial — empleador no asigna tareas (art. 212.2)', indem245:1.0, preaviso:false, integracion:false },
+  despido_sin_causa_245: { grupo: 'indem_245', nombre: 'Despido SIN justa causa (art. 245 LCT)', indem245: 1.0, preaviso: true, integracion: true },
+  despido_indirecto_246: { grupo: 'indem_245', nombre: 'Despido indirecto (art. 246 LCT)', indem245: 1.0, preaviso: true, integracion: true },
+  quiebra_culposa_251: { grupo: 'indem_245', nombre: 'Quiebra culposa/dolosa del empleador (art. 251 LCT)', indem245: 1.0, preaviso: true, integracion: true },
+  incapacidad_absoluta: { grupo: 'indem_245', nombre: 'Incapacidad absoluta (art. 212 inc. 3 LCT)', indem245: 1.0, preaviso: false, integracion: false },
+  incap_parcial_no_asigna: { grupo: 'indem_245', nombre: 'Incap. parcial — empleador no asigna tareas (art. 212.2)', indem245: 1.0, preaviso: false, integracion: false },
 
-  fuerza_mayor_247:        { grupo:'indem_247', nombre:'Fuerza mayor / falta o disminución trabajo (art. 247 LCT)', indem245:0.5, preaviso:false, integracion:false },
-  muerte_trabajador_248:   { grupo:'indem_247', nombre:'Muerte del trabajador (art. 248 LCT)',            indem245:0.5, preaviso:false, integracion:false },
-  muerte_empleador_249:    { grupo:'indem_247', nombre:'Muerte del empleador (art. 249 LCT)',             indem245:0.5, preaviso:false, integracion:false },
-  plazo_fijo_mayor_250:    { grupo:'indem_247', nombre:'Fin plazo fijo > 1 año (art. 250 LCT)',           indem245:0.5, preaviso:false, integracion:false },
-  quiebra_no_imputable_251:{ grupo:'indem_247', nombre:'Quiebra NO imputable al empleador (art. 251 LCT)', indem245:0.5, preaviso:false, integracion:false },
-  incap_parcial_no_imput:  { grupo:'indem_247', nombre:'Incap. parcial no imputable (art. 212 inc. 1)',   indem245:0.5, preaviso:false, integracion:false }
+  fuerza_mayor_247: { grupo: 'indem_247', nombre: 'Fuerza mayor / falta o disminución trabajo (art. 247 LCT)', indem245: 0.5, preaviso: false, integracion: false },
+  muerte_trabajador_248: { grupo: 'indem_247', nombre: 'Muerte del trabajador (art. 248 LCT)', indem245: 0.5, preaviso: false, integracion: false },
+  muerte_empleador_249: { grupo: 'indem_247', nombre: 'Muerte del empleador (art. 249 LCT)', indem245: 0.5, preaviso: false, integracion: false },
+  plazo_fijo_mayor_250: { grupo: 'indem_247', nombre: 'Fin plazo fijo > 1 año (art. 250 LCT)', indem245: 0.5, preaviso: false, integracion: false },
+  quiebra_no_imputable_251: { grupo: 'indem_247', nombre: 'Quiebra NO imputable al empleador (art. 251 LCT)', indem245: 0.5, preaviso: false, integracion: false },
+  incap_parcial_no_imput: { grupo: 'indem_247', nombre: 'Incap. parcial no imputable (art. 212 inc. 1)', indem245: 0.5, preaviso: false, integracion: false }
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -166,11 +166,11 @@ const REGIMENES = {
 
 // Categorías MIPyME por cantidad de empleados (Excel hoja "Categorías MIPyME" B17:C21)
 const CATEGORIAS_MIPYME = [
-  { clave: 'micro',     nombre: 'Micro',              empleadosServicios: 7,   empleadosComercio: 7   },
-  { clave: 'pequena',   nombre: 'Pequeña',            empleadosServicios: 30,  empleadosComercio: 35  },
-  { clave: 'mediana1',  nombre: 'Mediana tramo 1',    empleadosServicios: 165, empleadosComercio: 125 },
-  { clave: 'mediana2',  nombre: 'Mediana tramo 2',    empleadosServicios: 535, empleadosComercio: 345 },
-  { clave: 'grande',    nombre: 'Gran empresa',       empleadosServicios: null, empleadosComercio: null }
+  { clave: 'micro', nombre: 'Micro', empleadosServicios: 7, empleadosComercio: 7 },
+  { clave: 'pequena', nombre: 'Pequeña', empleadosServicios: 30, empleadosComercio: 35 },
+  { clave: 'mediana1', nombre: 'Mediana tramo 1', empleadosServicios: 165, empleadosComercio: 125 },
+  { clave: 'mediana2', nombre: 'Mediana tramo 2', empleadosServicios: 535, empleadosComercio: 345 },
+  { clave: 'grande', nombre: 'Gran empresa', empleadosServicios: null, empleadosComercio: null }
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -182,6 +182,15 @@ const PARAMS_VERSION = '2026.04';
 // Versión PÚBLICA de la app — editar manualmente desde el backend al publicar
 // Esta es la que se ve en el footer
 const APP_VERSION = '1.2.0';
+
+// Fecha base de los parámetros normativos cargados por defecto
+// (alícuotas, topes, SMVM, bases imponibles, escalas de convenio)
+// Actualizar cuando se modifiquen los DEFAULT_PARAMS por cambios normativos
+const PARAMS_BASE_DATE = 'marzo 2026';
+
+// Fecha de última revisión técnica de la herramienta (formato AAAA-MM-DD)
+// Actualizar al hacer revisión normativa, fix de fórmulas o release nuevo
+const LAST_REVIEW_DATE = '2026-05-12';
 
 const DEFAULT_PARAMS = {
   convenio_seleccionado: 'comercio',
@@ -268,19 +277,19 @@ const DEFAULT_PARAMS = {
 };
 
 const PARAM_GROUPS = {
-  'Remuneración base':         ['convenio_basico','adicional_antiguedad_pct','presentismo_pct'],
-  'Aportes del trabajador':    ['aporte_jubilacion_pct','aporte_ley_19032_pct','aporte_obra_social_pct','aporte_sindicato_pct','aporte_faecys_pct','aporte_extraord_osecac','os_fsr_distribucion_pct'],
-  'Régimen patronal GENERAL (Ley 27.541 art. 19 inc. a)': ['regimen_gral_jubilacion_pct','regimen_gral_pami_pct','regimen_gral_aaff_pct','regimen_gral_fne_pct','regimen_gral_os_pct'],
-  'Régimen patronal PYME (Ley 27.541 art. 19 inc. b)': ['regimen_pyme_jubilacion_pct','regimen_pyme_pami_pct','regimen_pyme_aaff_pct','regimen_pyme_fne_pct','regimen_pyme_os_pct'],
-  'Régimen patronal activo': ['regimen_patronal','categoria_mipyme','contribuciones_patronales_pct'],
-  'Detracciones y deducciones': ['detraccion_base','detraccion_ampliada','deduccion_25_empleados'],
-  'Bases imponibles AFIP (ANSES Res 38/2026 — marzo 2026)': ['base_imponible_minima','base_imponible_maxima','base_imponible_minima_os','prestacion_basica_universal','haber_minimo_jubilatorio','haber_maximo_jubilatorio','bono_extraordinario'],
-  'SMVM (Salario Mínimo Vital y Móvil)': ['smvm_mensual','smvm_hora'],
-  'ART + SCVO (Dec. 590/97 y Dispos. SRT)': ['art_valor_fijo_mensual','art_alicuota_variable_pct','scvo_valor_mensual','scvo_cantidad_cuiles_emision'],
-  'Divisores y horas':         ['divisor_sueldo','divisor_vacaciones','horas_base_mes','recargo_hs50_pct','recargo_hs100_pct','sac_divisor','criterio_antiguedad_fraccion_mayor_tres_meses'],
-  'Promedios CCT (para tope art. 245 Ley 27.802)': ['promedio_cct_comercio','promedio_cct_uocra','promedio_cct_camioneros','promedio_cct_gastronomico','promedio_cct_uatre','promedio_cct_sutara'],
-  'Reforma laboral (Ley 27.802 / 27.742)': ['tope_245_pct_sobre_promedio_cct','tope_245_base_minima_pct','prueba_default_meses','prueba_pyme_meses','prueba_micro_meses','fondo_cese_pct','fal_grandes_pct','fal_pymes_pct'],
-  'Datos del empleador':       ['empresa','convenio_referencia']
+  'Remuneración base': ['convenio_basico', 'adicional_antiguedad_pct', 'presentismo_pct'],
+  'Aportes del trabajador': ['aporte_jubilacion_pct', 'aporte_ley_19032_pct', 'aporte_obra_social_pct', 'aporte_sindicato_pct', 'aporte_faecys_pct', 'aporte_extraord_osecac', 'os_fsr_distribucion_pct'],
+  'Régimen patronal GENERAL (Ley 27.541 art. 19 inc. a)': ['regimen_gral_jubilacion_pct', 'regimen_gral_pami_pct', 'regimen_gral_aaff_pct', 'regimen_gral_fne_pct', 'regimen_gral_os_pct'],
+  'Régimen patronal PYME (Ley 27.541 art. 19 inc. b)': ['regimen_pyme_jubilacion_pct', 'regimen_pyme_pami_pct', 'regimen_pyme_aaff_pct', 'regimen_pyme_fne_pct', 'regimen_pyme_os_pct'],
+  'Régimen patronal activo': ['regimen_patronal', 'categoria_mipyme', 'contribuciones_patronales_pct'],
+  'Detracciones y deducciones': ['detraccion_base', 'detraccion_ampliada', 'deduccion_25_empleados'],
+  'Bases imponibles AFIP (ANSES Res 38/2026 — marzo 2026)': ['base_imponible_minima', 'base_imponible_maxima', 'base_imponible_minima_os', 'prestacion_basica_universal', 'haber_minimo_jubilatorio', 'haber_maximo_jubilatorio', 'bono_extraordinario'],
+  'SMVM (Salario Mínimo Vital y Móvil)': ['smvm_mensual', 'smvm_hora'],
+  'ART + SCVO (Dec. 590/97 y Dispos. SRT)': ['art_valor_fijo_mensual', 'art_alicuota_variable_pct', 'scvo_valor_mensual', 'scvo_cantidad_cuiles_emision'],
+  'Divisores y horas': ['divisor_sueldo', 'divisor_vacaciones', 'horas_base_mes', 'recargo_hs50_pct', 'recargo_hs100_pct', 'sac_divisor', 'criterio_antiguedad_fraccion_mayor_tres_meses'],
+  'Promedios CCT (para tope art. 245 Ley 27.802)': ['promedio_cct_comercio', 'promedio_cct_uocra', 'promedio_cct_camioneros', 'promedio_cct_gastronomico', 'promedio_cct_uatre', 'promedio_cct_sutara'],
+  'Reforma laboral (Ley 27.802 / 27.742)': ['tope_245_pct_sobre_promedio_cct', 'tope_245_base_minima_pct', 'prueba_default_meses', 'prueba_pyme_meses', 'prueba_micro_meses', 'fondo_cese_pct', 'fal_grandes_pct', 'fal_pymes_pct'],
+  'Datos del empleador': ['empresa', 'convenio_referencia']
 };
 
 const PARAM_LABELS = {
@@ -365,33 +374,33 @@ const PARAM_LABELS = {
 };
 
 const DEFAULT_CHECKLIST = [
-  { titulo: 'Alta y legajo', items: ['Confirmar modalidad de contratación','Verificar fecha de ingreso real y teórica','Controlar obra social, convenio y categoría','Guardar documentación y constancias'] },
-  { titulo: 'Liquidación mensual', items: ['Definir básico y adicionales de convenio','Separar conceptos remunerativos y no remunerativos','Controlar incidencias: horas, licencias, vacaciones, variables','Revisar neto antes de emitir recibo'] },
-  { titulo: 'Aportes y contribuciones', items: ['Controlar descuentos del trabajador','Revisar contribuciones patronales','Verificar base imponible usada','Dejar trazabilidad del criterio aplicado'] },
-  { titulo: 'Cierre operativo', items: ['Emitir recibos','Controlar carga en sistemas','Revisar declaración jurada y/o LSD','Guardar respaldo de papeles de trabajo'] },
-  { titulo: 'Liquidación final', items: ['Identificar causal exacta (art. LCT)','Calcular base art. 245 con promedio de variables','Aplicar topes Ley 27.802 (máx 3× y mín 67%)','Verificar preaviso según antigüedad','Revisar SAC sobre cada indemnizatorio','Certificado de servicios (art. 80 LCT)'] },
-  { titulo: 'Control profesional', items: ['Chequear convenio aplicable','Confirmar normativa vigente','Corroborar actualizaciones por reforma','Dejar nota del criterio técnico utilizado'] }
+  { titulo: 'Alta y legajo', items: ['Confirmar modalidad de contratación', 'Verificar fecha de ingreso real y teórica', 'Controlar obra social, convenio y categoría', 'Guardar documentación y constancias'] },
+  { titulo: 'Liquidación mensual', items: ['Definir básico y adicionales de convenio', 'Separar conceptos remunerativos y no remunerativos', 'Controlar incidencias: horas, licencias, vacaciones, variables', 'Revisar neto antes de emitir recibo'] },
+  { titulo: 'Aportes y contribuciones', items: ['Controlar descuentos del trabajador', 'Revisar contribuciones patronales', 'Verificar base imponible usada', 'Dejar trazabilidad del criterio aplicado'] },
+  { titulo: 'Cierre operativo', items: ['Emitir recibos', 'Controlar carga en sistemas', 'Revisar declaración jurada y/o LSD', 'Guardar respaldo de papeles de trabajo'] },
+  { titulo: 'Liquidación final', items: ['Identificar causal exacta (art. LCT)', 'Calcular base art. 245 con promedio de variables', 'Aplicar topes Ley 27.802 (máx 3× y mín 67%)', 'Verificar preaviso según antigüedad', 'Revisar SAC sobre cada indemnizatorio', 'Certificado de servicios (art. 80 LCT)'] },
+  { titulo: 'Control profesional', items: ['Chequear convenio aplicable', 'Confirmar normativa vigente', 'Corroborar actualizaciones por reforma', 'Dejar nota del criterio técnico utilizado'] }
 ];
 
 // ─── Storage ───────────────────────────────────────────────────────────────
-const STORAGE_KEY  = 'klp_params_v3';
+const STORAGE_KEY = 'klp_params_v3';
 const STORAGE_META = 'klp_meta_v3';
 function loadParams() { try { const raw = localStorage.getItem(STORAGE_KEY); if (!raw) return { ...DEFAULT_PARAMS }; return { ...DEFAULT_PARAMS, ...JSON.parse(raw) }; } catch { return { ...DEFAULT_PARAMS }; } }
-function loadMeta()   { try { const raw = localStorage.getItem(STORAGE_META); return raw ? JSON.parse(raw) : null; } catch { return null; } }
-function saveMeta(v)  { const m = { version: v, savedAt: new Date().toISOString() }; localStorage.setItem(STORAGE_META, JSON.stringify(m)); return m; }
+function loadMeta() { try { const raw = localStorage.getItem(STORAGE_META); return raw ? JSON.parse(raw) : null; } catch { return null; } }
+function saveMeta(v) { const m = { version: v, savedAt: new Date().toISOString() }; localStorage.setItem(STORAGE_META, JSON.stringify(m)); return m; }
 function saveParams() { localStorage.setItem(STORAGE_KEY, JSON.stringify(params)); return saveMeta(PARAMS_VERSION); }
-function formatDate(iso) { if (!iso) return '—'; const d = new Date(iso); return d.toLocaleDateString('es-AR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }); }
+function formatDate(iso) { if (!iso) return '—'; const d = new Date(iso); return d.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }
 
 let params = loadParams();
 let lastMensualData = null;
-let lastFinalData   = null;
+let lastFinalData = null;
 
-function money(n)   { return new Intl.NumberFormat('es-AR', { style:'currency', currency:'ARS', maximumFractionDigits:2 }).format(Number(n||0)); }
-function percent(n) { return `${Number(n||0).toFixed(2).replace('.',',')}%`; }
-function nv(id)     { return Number(document.getElementById(id)?.value||0); }
-function sv(id)     { return document.getElementById(id)?.value || ''; }
-function chk(id)    { return document.getElementById(id)?.checked || false; }
-function round2(n)  { return Math.round((Number(n||0)+Number.EPSILON)*100)/100; }
+function money(n) { return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 2 }).format(Number(n || 0)); }
+function percent(n) { return `${Number(n || 0).toFixed(2).replace('.', ',')}%`; }
+function nv(id) { return Number(document.getElementById(id)?.value || 0); }
+function sv(id) { return document.getElementById(id)?.value || ''; }
+function chk(id) { return document.getElementById(id)?.checked || false; }
+function round2(n) { return Math.round((Number(n || 0) + Number.EPSILON) * 100) / 100; }
 
 function switchTab(tab) {
   document.querySelectorAll('.tab-btn,.mtab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
@@ -407,12 +416,16 @@ function renderMeta() {
   const meta = loadMeta();
   const verEl = document.getElementById('metaVersion');
   const updEl = document.getElementById('metaUpdated');
+  const paramsBaseEl = document.getElementById('metaParamsBase');
+  const reviewEl = document.getElementById('metaReview');
   const bannerText = document.getElementById('paramsBannerText');
-  const bannerSub  = document.getElementById('paramsBannerSub');
-  const bannerVer  = document.getElementById('paramsBannerVersion');
-  const badge      = document.getElementById('updateBadge');
-  const badgeText  = document.getElementById('updateBadgeText');
+  const bannerSub = document.getElementById('paramsBannerSub');
+  const bannerVer = document.getElementById('paramsBannerVersion');
+  const badge = document.getElementById('updateBadge');
+  const badgeText = document.getElementById('updateBadgeText');
   if (verEl) verEl.textContent = 'v' + APP_VERSION;
+  if (paramsBaseEl) paramsBaseEl.textContent = 'params: ' + PARAMS_BASE_DATE;
+  if (reviewEl) reviewEl.textContent = 'rev: ' + LAST_REVIEW_DATE;
   if (meta) {
     if (updEl) updEl.textContent = 'Guardado: ' + formatDate(meta.savedAt);
     if (bannerText) bannerText.textContent = 'Parámetros en caché local';
@@ -431,8 +444,8 @@ function renderMeta() {
 
 function renderDashboard() {
   document.getElementById('cardBasic').textContent = money(params.convenio_basico);
-  const aportes = ['aporte_jubilacion_pct','aporte_ley_19032_pct','aporte_obra_social_pct','aporte_sindicato_pct','aporte_faecys_pct']
-    .reduce((s,k) => s + Number(params[k]||0), 0);
+  const aportes = ['aporte_jubilacion_pct', 'aporte_ley_19032_pct', 'aporte_obra_social_pct', 'aporte_sindicato_pct', 'aporte_faecys_pct']
+    .reduce((s, k) => s + Number(params[k] || 0), 0);
   document.getElementById('cardAportes').textContent = percent(aportes);
   document.getElementById('cardContribuciones').textContent = percent(params.contribuciones_patronales_pct);
 }
@@ -468,20 +481,20 @@ function updateCheckProgress() {
   const all = document.querySelectorAll('#checklistGrid input[type="checkbox"]');
   const done = document.querySelectorAll('#checklistGrid input[type="checkbox"]:checked').length;
   const total = all.length;
-  const pct = total ? Math.round((done/total)*100) : 0;
+  const pct = total ? Math.round((done / total) * 100) : 0;
   const prog = document.getElementById('checkProgress');
-  const bar  = document.getElementById('checkBar');
+  const bar = document.getElementById('checkBar');
   if (prog) prog.textContent = done + ' de ' + total + ' completados (' + pct + '%)';
   if (bar) bar.style.width = pct + '%';
 }
 function renderChecklist() {
   const grid = document.getElementById('checklistGrid');
   grid.innerHTML = '';
-  DEFAULT_CHECKLIST.forEach(function(group) {
+  DEFAULT_CHECKLIST.forEach(function (group) {
     const card = document.createElement('div');
     card.className = 'cl-card';
     let html = '<div class="cl-h">' + group.titulo + '</div>';
-    group.items.forEach(function(item) {
+    group.items.forEach(function (item) {
       html += '<div class="cl-item"><input type="checkbox" /><span>' + item + '</span></div>';
     });
     card.innerHTML = html;
@@ -561,22 +574,22 @@ function getRegimenesActivos() {
     general: {
       nombre: 'Régimen General (art. 19 inc. a · Ley 27.541)',
       jubilacion_pct: params.regimen_gral_jubilacion_pct,
-      pami_pct:       params.regimen_gral_pami_pct,
-      aaff_pct:       params.regimen_gral_aaff_pct,
-      fne_pct:        params.regimen_gral_fne_pct,
+      pami_pct: params.regimen_gral_pami_pct,
+      aaff_pct: params.regimen_gral_aaff_pct,
+      fne_pct: params.regimen_gral_fne_pct,
       subtotal_ss_pct: gral_ss,
       obra_social_pct: params.regimen_gral_os_pct,
-      total_pct:       round2(gral_ss + params.regimen_gral_os_pct)
+      total_pct: round2(gral_ss + params.regimen_gral_os_pct)
     },
     pyme: {
       nombre: 'Régimen Reducido PyME (art. 19 inc. b · Ley 27.541)',
       jubilacion_pct: params.regimen_pyme_jubilacion_pct,
-      pami_pct:       params.regimen_pyme_pami_pct,
-      aaff_pct:       params.regimen_pyme_aaff_pct,
-      fne_pct:        params.regimen_pyme_fne_pct,
+      pami_pct: params.regimen_pyme_pami_pct,
+      aaff_pct: params.regimen_pyme_aaff_pct,
+      fne_pct: params.regimen_pyme_fne_pct,
       subtotal_ss_pct: pyme_ss,
       obra_social_pct: params.regimen_pyme_os_pct,
-      total_pct:       round2(pyme_ss + params.regimen_pyme_os_pct)
+      total_pct: round2(pyme_ss + params.regimen_pyme_os_pct)
     }
   };
 }
@@ -604,51 +617,51 @@ function setMensualDefaults() { document.getElementById('mBasico').value = param
 //  LIQUIDACIÓN MENSUAL
 // ═══════════════════════════════════════════════════════════════════════════
 function calcMensual() {
-  const basico   = nv('mBasico');
+  const basico = nv('mBasico');
   const antiguAn = nv('mAntiguedadAnios');
-  const dias     = nv('mDiasTrabajados');
-  const hs50     = nv('mHoras50');
-  const hs100    = nv('mHoras100');
+  const dias = nv('mDiasTrabajados');
+  const hs50 = nv('mHoras50');
+  const hs100 = nv('mHoras100');
   const usarComisiones = chk('chkComisiones');
   const vars = usarComisiones ? nv('mVariables') : 0;
   const feriadosNT = nv('mFeriadosNT');
-  const feriadosT  = nv('mFeriadosT');
+  const feriadosT = nv('mFeriadosT');
   const diasEnfermedad = nv('mDiasEnfermedad');
   const baseEnfermedad = nv('mBaseEnfermedad') || 25;
-  const conceptoNR       = nv('mConceptoNR');
-  const nrAportaOS       = chk('chkNraportaOS');
-  const nrAportaSind     = chk('chkNraportaSind');
-  const nrAportaFaecys   = chk('chkNraportaFaecys');
+  const conceptoNR = nv('mConceptoNR');
+  const nrAportaOS = chk('chkNraportaOS');
+  const nrAportaSind = chk('chkNraportaSind');
+  const nrAportaFaecys = chk('chkNraportaFaecys');
   const otrosDLabel = sv('mOtrosDescuentosLabel') || 'Otros descuentos';
-  const otrosD      = nv('mOtrosDescuentos');
+  const otrosD = nv('mOtrosDescuentos');
 
   const convenioKey = sv('mConvenio') || params.convenio_seleccionado;
-  const basicoProp   = round2((basico / params.divisor_sueldo) * dias);
-  const antiguedad   = calcularAdicionalAntiguedad(basicoProp, antiguAn, convenioKey);
-  const presentismo  = round2((basicoProp + antiguedad) * (params.presentismo_pct/100));
-  const valorHora    = basico / params.horas_base_mes;
-  const extra50      = round2(hs50  * valorHora * (1 + params.recargo_hs50_pct/100));
-  const extra100     = round2(hs100 * valorHora * (1 + params.recargo_hs100_pct/100));
+  const basicoProp = round2((basico / params.divisor_sueldo) * dias);
+  const antiguedad = calcularAdicionalAntiguedad(basicoProp, antiguAn, convenioKey);
+  const presentismo = round2((basicoProp + antiguedad) * (params.presentismo_pct / 100));
+  const valorHora = basico / params.horas_base_mes;
+  const extra50 = round2(hs50 * valorHora * (1 + params.recargo_hs50_pct / 100));
+  const extra100 = round2(hs100 * valorHora * (1 + params.recargo_hs100_pct / 100));
   const valorDia25 = (basico + antiguedad + presentismo) / 25;
   const valorDia30 = (basico + antiguedad + presentismo) / 30;
   const plusFeriadoNT = round2(feriadosNT * (valorDia25 - valorDia30));
-  const plusFeriadoT  = round2(feriadosT * valorDia25);
+  const plusFeriadoT = round2(feriadosT * valorDia25);
   const valorDiaEnf = (basico + antiguedad + presentismo) / baseEnfermedad;
-  const enfermedad  = round2(diasEnfermedad * valorDiaEnf);
+  const enfermedad = round2(diasEnfermedad * valorDiaEnf);
 
   const remunerativo = round2(basicoProp + antiguedad + presentismo + extra50 + extra100 + vars + plusFeriadoNT + plusFeriadoT + enfermedad);
   const noRemunerativo = round2(conceptoNR);
 
-  const descJub   = round2(remunerativo * (params.aporte_jubilacion_pct/100));
-  const desc19    = round2(remunerativo * (params.aporte_ley_19032_pct/100));
-  const baseOS    = remunerativo + (nrAportaOS ? conceptoNR : 0);
-  const baseSind  = remunerativo + (nrAportaSind ? conceptoNR : 0);
-  const baseFaec  = remunerativo + (nrAportaFaecys ? conceptoNR : 0);
-  const descOS    = round2(baseOS * (params.aporte_obra_social_pct/100));
-  const descSind  = round2(baseSind * (params.aporte_sindicato_pct/100));
-  const descFaec  = round2(baseFaec * (params.aporte_faecys_pct/100));
+  const descJub = round2(remunerativo * (params.aporte_jubilacion_pct / 100));
+  const desc19 = round2(remunerativo * (params.aporte_ley_19032_pct / 100));
+  const baseOS = remunerativo + (nrAportaOS ? conceptoNR : 0);
+  const baseSind = remunerativo + (nrAportaSind ? conceptoNR : 0);
+  const baseFaec = remunerativo + (nrAportaFaecys ? conceptoNR : 0);
+  const descOS = round2(baseOS * (params.aporte_obra_social_pct / 100));
+  const descSind = round2(baseSind * (params.aporte_sindicato_pct / 100));
+  const descFaec = round2(baseFaec * (params.aporte_faecys_pct / 100));
   const descuentos = round2(descJub + desc19 + descOS + descSind + descFaec + otrosD);
-  const neto       = round2(remunerativo + noRemunerativo - descuentos);
+  const neto = round2(remunerativo + noRemunerativo - descuentos);
 
   // ── Contribuciones patronales: calcular AMBOS regímenes para comparar ──
   // Como pidió Horacio en la reunión: que quede visible lo de PyME y lo general.
@@ -665,10 +678,10 @@ function calcMensual() {
     obra_social_pct: regGral.obra_social_pct,
     subtotal_ss_pct: regGral.subtotal_ss_pct,
     total_pct: regGral.total_pct,
-    jubilacion:  round2(remunerativo * regGral.jubilacion_pct / 100),
-    pami:        round2(remunerativo * regGral.pami_pct / 100),
-    aaff:        round2(remunerativo * regGral.aaff_pct / 100),
-    fne:         round2(remunerativo * regGral.fne_pct / 100),
+    jubilacion: round2(remunerativo * regGral.jubilacion_pct / 100),
+    pami: round2(remunerativo * regGral.pami_pct / 100),
+    aaff: round2(remunerativo * regGral.aaff_pct / 100),
+    fne: round2(remunerativo * regGral.fne_pct / 100),
     obra_social: round2(remunerativo * regGral.obra_social_pct / 100),
     total: 0
   };
@@ -683,10 +696,10 @@ function calcMensual() {
     obra_social_pct: regPyme.obra_social_pct,
     subtotal_ss_pct: regPyme.subtotal_ss_pct,
     total_pct: regPyme.total_pct,
-    jubilacion:  round2(remunerativo * regPyme.jubilacion_pct / 100),
-    pami:        round2(remunerativo * regPyme.pami_pct / 100),
-    aaff:        round2(remunerativo * regPyme.aaff_pct / 100),
-    fne:         round2(remunerativo * regPyme.fne_pct / 100),
+    jubilacion: round2(remunerativo * regPyme.jubilacion_pct / 100),
+    pami: round2(remunerativo * regPyme.pami_pct / 100),
+    aaff: round2(remunerativo * regPyme.aaff_pct / 100),
+    fne: round2(remunerativo * regPyme.fne_pct / 100),
     obra_social: round2(remunerativo * regPyme.obra_social_pct / 100),
     total: 0
   };
@@ -697,10 +710,10 @@ function calcMensual() {
   const regimenActNombre = (params.regimen_patronal === 'pyme') ? 'PyME' : 'General';
   const contribuciones = regimenAct.total;
 
-  document.getElementById('rRemunerativo').textContent   = money(remunerativo);
+  document.getElementById('rRemunerativo').textContent = money(remunerativo);
   document.getElementById('rNoRemunerativo').textContent = money(noRemunerativo);
-  document.getElementById('rDescuentos').textContent     = money(descuentos);
-  document.getElementById('rNeto').textContent           = money(neto);
+  document.getElementById('rDescuentos').textContent = money(descuentos);
+  document.getElementById('rNeto').textContent = money(neto);
   const rContribEl = document.getElementById('rContribuciones');
   if (rContribEl) rContribEl.textContent = `${money(contribuciones)} (${regimenActNombre})`;
 
@@ -719,7 +732,7 @@ function calcMensual() {
       <tr><td>Fondo Nacional de Empleo</td><td style="text-align:right;">${percent(contribGeneral.fne_pct)} · ${money(contribGeneral.fne)}</td><td style="text-align:right;">${percent(contribPyme.fne_pct)} · ${money(contribPyme.fne)}</td></tr>
       <tr style="background:#f9f9f9;"><td style="font-weight:600;">Subtotal Seguridad Social</td><td style="text-align:right; font-weight:600;">${percent(contribGeneral.subtotal_ss_pct)} · ${money(contribGeneral.subtotal_ss)}</td><td style="text-align:right; font-weight:600;">${percent(contribPyme.subtotal_ss_pct)} · ${money(contribPyme.subtotal_ss)}</td></tr>
       <tr><td>Obra Social (Ley 23.660)</td><td style="text-align:right;">${percent(contribGeneral.obra_social_pct)} · ${money(contribGeneral.obra_social)}</td><td style="text-align:right;">${percent(contribPyme.obra_social_pct)} · ${money(contribPyme.obra_social)}</td></tr>
-      <tr style="background:#020f27; color:#fff;"><td style="font-weight:700;">TOTAL CONTRIBUCIONES</td><td style="text-align:right; font-weight:700; color:${regimenActNombre==='General'?'#22d9df':'#a0c4d8'};">${percent(contribGeneral.total_pct)} · ${money(contribGeneral.total)}</td><td style="text-align:right; font-weight:700; color:${regimenActNombre==='PyME'?'#22d9df':'#a0c4d8'};">${percent(contribPyme.total_pct)} · ${money(contribPyme.total)}</td></tr>
+      <tr style="background:#020f27; color:#fff;"><td style="font-weight:700;">TOTAL CONTRIBUCIONES</td><td style="text-align:right; font-weight:700; color:${regimenActNombre === 'General' ? '#22d9df' : '#a0c4d8'};">${percent(contribGeneral.total_pct)} · ${money(contribGeneral.total)}</td><td style="text-align:right; font-weight:700; color:${regimenActNombre === 'PyME' ? '#22d9df' : '#a0c4d8'};">${percent(contribPyme.total_pct)} · ${money(contribPyme.total)}</td></tr>
     `;
   }
   // Info de régimen y categoría MIPyME activos
@@ -732,31 +745,31 @@ function calcMensual() {
   }
 
   const rows = [
-    { lsd:'110000', codigo:'R1001', label:'Sueldo básico',    cant:`${dias} días`,          valUnit: round2(basico/params.divisor_sueldo), baseCalc: basico, val:basicoProp,   tipo:'rem' },
-    { lsd:'160001', codigo:'R1010', label:'Antigüedad',       cant:`${antiguAn} año/s`,     valUnit: null,                                  baseCalc: basicoProp, val:antiguedad, tipo:'rem' },
-    { lsd:'170001', codigo:'R1011', label:'Presentismo',      cant:percent(params.presentismo_pct), valUnit: null,                          baseCalc: round2(basicoProp+antiguedad), val:presentismo,  tipo:'rem' },
-    { lsd:'170002', codigo:'R1030', label:'Horas extra 50%',  cant:`${hs50} hs`,            valUnit: round2(valorHora*1.5),                baseCalc: valorHora,  val:extra50,     tipo:'rem' },
-    { lsd:'170002', codigo:'R1031', label:'Horas extra 100%', cant:`${hs100} hs`,           valUnit: round2(valorHora*2),                  baseCalc: valorHora,  val:extra100,    tipo:'rem' },
+    { lsd: '110000', codigo: 'R1001', label: 'Sueldo básico', cant: `${dias} días`, valUnit: round2(basico / params.divisor_sueldo), baseCalc: basico, val: basicoProp, tipo: 'rem' },
+    { lsd: '160001', codigo: 'R1010', label: 'Antigüedad', cant: `${antiguAn} año/s`, valUnit: null, baseCalc: basicoProp, val: antiguedad, tipo: 'rem' },
+    { lsd: '170001', codigo: 'R1011', label: 'Presentismo', cant: percent(params.presentismo_pct), valUnit: null, baseCalc: round2(basicoProp + antiguedad), val: presentismo, tipo: 'rem' },
+    { lsd: '170002', codigo: 'R1030', label: 'Horas extra 50%', cant: `${hs50} hs`, valUnit: round2(valorHora * 1.5), baseCalc: valorHora, val: extra50, tipo: 'rem' },
+    { lsd: '170002', codigo: 'R1031', label: 'Horas extra 100%', cant: `${hs100} hs`, valUnit: round2(valorHora * 2), baseCalc: valorHora, val: extra100, tipo: 'rem' },
   ];
-  if (usarComisiones && vars > 0) rows.push({ lsd:'170003', codigo:'R1050', label:'Comisiones / variables', cant:'—', valUnit:null, baseCalc: null, val:vars, tipo:'rem' });
-  if (feriadosNT > 0) rows.push({ lsd:'110007', codigo:'R1020', label:'Plus feriado no trabajado', cant:`${feriadosNT}`, valUnit:round2(valorDia25-valorDia30), baseCalc: round2(valorDia25-valorDia30), val:plusFeriadoNT, tipo:'rem' });
-  if (feriadosT > 0)  rows.push({ lsd:'110007', codigo:'R1022', label:'Feriado trabajado', cant:`${feriadosT}`, valUnit:round2(valorDia25), baseCalc: valorDia25, val:plusFeriadoT, tipo:'rem' });
-  if (diasEnfermedad > 0) rows.push({ lsd:'110005', codigo:'R1040', label:`Licencia enfermedad (base ${baseEnfermedad})`, cant:`${diasEnfermedad} días`, valUnit:round2(valorDiaEnf), baseCalc: valorDiaEnf, val:enfermedad, tipo:'rem' });
+  if (usarComisiones && vars > 0) rows.push({ lsd: '170003', codigo: 'R1050', label: 'Comisiones / variables', cant: '—', valUnit: null, baseCalc: null, val: vars, tipo: 'rem' });
+  if (feriadosNT > 0) rows.push({ lsd: '110007', codigo: 'R1020', label: 'Plus feriado no trabajado', cant: `${feriadosNT}`, valUnit: round2(valorDia25 - valorDia30), baseCalc: round2(valorDia25 - valorDia30), val: plusFeriadoNT, tipo: 'rem' });
+  if (feriadosT > 0) rows.push({ lsd: '110007', codigo: 'R1022', label: 'Feriado trabajado', cant: `${feriadosT}`, valUnit: round2(valorDia25), baseCalc: valorDia25, val: plusFeriadoT, tipo: 'rem' });
+  if (diasEnfermedad > 0) rows.push({ lsd: '110005', codigo: 'R1040', label: `Licencia enfermedad (base ${baseEnfermedad})`, cant: `${diasEnfermedad} días`, valUnit: round2(valorDiaEnf), baseCalc: valorDiaEnf, val: enfermedad, tipo: 'rem' });
   if (conceptoNR > 0) {
     const aportesTxt = [];
     if (nrAportaOS) aportesTxt.push('OS');
     if (nrAportaSind) aportesTxt.push('Sind');
     if (nrAportaFaecys) aportesTxt.push('FAECyS');
     const sufijo = aportesTxt.length ? ` (aporta ${aportesTxt.join(' · ')})` : '';
-    rows.push({ lsd:'551000', codigo:'N2000', label:`Concepto no remunerativo${sufijo}`, cant:'—', valUnit:null, baseCalc: null, val:conceptoNR, tipo:'norem' });
+    rows.push({ lsd: '551000', codigo: 'N2000', label: `Concepto no remunerativo${sufijo}`, cant: '—', valUnit: null, baseCalc: null, val: conceptoNR, tipo: 'norem' });
   }
-  rows.push({ lsd:'810000', codigo:'D3001', label:'Jubilación (SIPA)',  cant:percent(params.aporte_jubilacion_pct), valUnit:null, baseCalc: remunerativo, val:-descJub, tipo:'desc' });
-  rows.push({ lsd:'810001', codigo:'D3002', label:'INSSJyP-PAMI Ley 19.032', cant:percent(params.aporte_ley_19032_pct), valUnit:null, baseCalc: remunerativo, val:-desc19,  tipo:'desc' });
-  rows.push({ lsd:'810002', codigo:'D3003', label:'Obra social', cant:percent(params.aporte_obra_social_pct), valUnit:null, baseCalc: baseOS, val:-descOS, tipo:'desc' });
-  rows.push({ lsd:'810004', codigo:'D3010', label:'Sindicato',   cant:percent(params.aporte_sindicato_pct), valUnit:null, baseCalc: baseSind, val:-descSind, tipo:'desc' });
-  if (params.aporte_faecys_pct > 0) rows.push({ lsd:'810004', codigo:'D3011', label:'FAECyS / similar', cant:percent(params.aporte_faecys_pct), valUnit:null, baseCalc: baseFaec, val:-descFaec, tipo:'desc' });
-  if (otrosD > 0) rows.push({ lsd:'810099', codigo:'D3099', label:otrosDLabel, cant:'—', valUnit:null, baseCalc: null, val:-otrosD, tipo:'desc' });
-  rows.push({ label:'NETO ESTIMADO', cant:'', valUnit:null, val:neto, tipo:'total' });
+  rows.push({ lsd: '810000', codigo: 'D3001', label: 'Jubilación (SIPA)', cant: percent(params.aporte_jubilacion_pct), valUnit: null, baseCalc: remunerativo, val: -descJub, tipo: 'desc' });
+  rows.push({ lsd: '810001', codigo: 'D3002', label: 'INSSJyP-PAMI Ley 19.032', cant: percent(params.aporte_ley_19032_pct), valUnit: null, baseCalc: remunerativo, val: -desc19, tipo: 'desc' });
+  rows.push({ lsd: '810002', codigo: 'D3003', label: 'Obra social', cant: percent(params.aporte_obra_social_pct), valUnit: null, baseCalc: baseOS, val: -descOS, tipo: 'desc' });
+  rows.push({ lsd: '810004', codigo: 'D3010', label: 'Sindicato', cant: percent(params.aporte_sindicato_pct), valUnit: null, baseCalc: baseSind, val: -descSind, tipo: 'desc' });
+  if (params.aporte_faecys_pct > 0) rows.push({ lsd: '810004', codigo: 'D3011', label: 'FAECyS / similar', cant: percent(params.aporte_faecys_pct), valUnit: null, baseCalc: baseFaec, val: -descFaec, tipo: 'desc' });
+  if (otrosD > 0) rows.push({ lsd: '810099', codigo: 'D3099', label: otrosDLabel, cant: '—', valUnit: null, baseCalc: null, val: -otrosD, tipo: 'desc' });
+  rows.push({ label: 'NETO ESTIMADO', cant: '', valUnit: null, val: neto, tipo: 'total' });
 
   document.getElementById('mensualBreakdown').innerHTML = rows.map(r => {
     const isTotal = r.tipo === 'total';
@@ -781,12 +794,12 @@ function calcMensual() {
 // ═══════════════════════════════════════════════════════════════════════════
 function calcularAntiguedades(startDate, endDate) {
   if (!startDate || !endDate) return { paraVacYPreaviso: 0, paraIndem245: 0, mesesExactos: 0 };
-  const s = new Date(startDate+'T00:00:00');
-  const e = new Date(endDate+'T00:00:00');
-  if (isNaN(s)||isNaN(e)||e<s) return { paraVacYPreaviso: 0, paraIndem245: 0, mesesExactos: 0 };
-  const months = (e.getFullYear()-s.getFullYear())*12 + (e.getMonth()-s.getMonth()) + (e.getDate()>=s.getDate()?0:-1);
-  const years = Math.floor(months/12);
-  const rem = months%12;
+  const s = new Date(startDate + 'T00:00:00');
+  const e = new Date(endDate + 'T00:00:00');
+  if (isNaN(s) || isNaN(e) || e < s) return { paraVacYPreaviso: 0, paraIndem245: 0, mesesExactos: 0 };
+  const months = (e.getFullYear() - s.getFullYear()) * 12 + (e.getMonth() - s.getMonth()) + (e.getDate() >= s.getDate() ? 0 : -1);
+  const years = Math.floor(months / 12);
+  const rem = months % 12;
   return {
     paraVacYPreaviso: Math.max(0, years),
     paraIndem245: rem > 3 ? years + 1 : Math.max(0, years),
@@ -795,7 +808,7 @@ function calcularAntiguedades(startDate, endDate) {
 }
 
 function diasVacacionesPorAntiguedad(anios) {
-  if (anios < 5)  return 14;
+  if (anios < 5) return 14;
   if (anios < 10) return 21;
   if (anios < 20) return 28;
   return 35;
@@ -832,9 +845,9 @@ function renderCausales() {
   if (!sel) return;
   sel.innerHTML = '';
   const grupos = {
-    no_indem:   '── No indemnizables ──',
-    indem_245:  '── Indemnizables art. 245 (100%) ──',
-    indem_247:  '── Indemnizables art. 247 (50%) ──'
+    no_indem: '── No indemnizables ──',
+    indem_245: '── Indemnizables art. 245 (100%) ──',
+    indem_247: '── Indemnizables art. 247 (50%) ──'
   };
   Object.entries(grupos).forEach(([grupoKey, grupoLabel]) => {
     const optGroup = document.createElement('optgroup');
@@ -851,21 +864,21 @@ function renderCausales() {
 }
 
 function calcFinal() {
-  const causalKey  = sv('fTipo') || 'despido_sin_causa_245';
-  const causal     = CAUSALES[causalKey] || CAUSALES.despido_sin_causa_245;
+  const causalKey = sv('fTipo') || 'despido_sin_causa_245';
+  const causal = CAUSALES[causalKey] || CAUSALES.despido_sin_causa_245;
   const convenioKey = sv('mConvenio') || params.convenio_seleccionado;
-  const convenio    = CONVENIOS[convenioKey] || CONVENIOS.comercio;
+  const convenio = CONVENIOS[convenioKey] || CONVENIOS.comercio;
 
   // ── Base de cálculo (fijos + no rem que entran + promedio variables) ────
-  const remFijos   = nv('fRemFijos');
-  const noRemInd   = nv('fNoRemIndem');
-  const promVars   = nv('fPromVariables');
+  const remFijos = nv('fRemFijos');
+  const noRemInd = nv('fNoRemIndem');
+  const promVars = nv('fPromVariables');
   const baseCalculoSinTope = round2(remFijos + noRemInd + promVars);
 
   // ── Fechas y antigüedades ───────────────────────────────────────────────
-  const ingreso  = sv('fIngreso');
-  const egreso   = sv('fEgreso');
-  const antig    = calcularAntiguedades(ingreso, egreso);
+  const ingreso = sv('fIngreso');
+  const egreso = sv('fEgreso');
+  const antig = calcularAntiguedades(ingreso, egreso);
 
   // ── Preaviso ────────────────────────────────────────────────────────────
   const preavisoAutomatico = chk('fPreavisoAuto');
@@ -890,20 +903,20 @@ function calcFinal() {
   const mesesSacManual = nv('fMesesSac');
   let mesesSac = mesesSacManual;
   if (mesesSacAuto && egreso) {
-    const e = new Date(egreso+'T00:00:00');
+    const e = new Date(egreso + 'T00:00:00');
     const mesEgreso = e.getMonth();
     const diaEgreso = e.getDate();
     const inicioSem = mesEgreso < 6 ? 0 : 6;
-    const mesesEnSem = (mesEgreso - inicioSem) + (diaEgreso/30);
+    const mesesEnSem = (mesEgreso - inicioSem) + (diaEgreso / 30);
     mesesSac = round2(mesesEnSem);
   }
 
   // ── Agravantes ─────────────────────────────────────────────────────────
-  const agEmbarazo    = chk('fAgEmbarazo');
-  const agMatrimonio  = chk('fAgMatrimonio');
-  const agGremial     = chk('fAgGremial');
-  const agDiscrim     = chk('fAgDiscrim');
-  const agDiscrimPct  = nv('fAgDiscrimPct') || 50;
+  const agEmbarazo = chk('fAgEmbarazo');
+  const agMatrimonio = chk('fAgMatrimonio');
+  const agGremial = chk('fAgGremial');
+  const agDiscrim = chk('fAgDiscrim');
+  const agDiscrimPct = nv('fAgDiscrimPct') || 50;
 
   const divisor = params.divisor_sueldo;
   const divisorVac = params.divisor_vacaciones;
@@ -934,10 +947,10 @@ function calcFinal() {
   let indemAgravada = 0;
   const agravantesList = [];
   if (causal.indem245 > 0) {
-    if (agEmbarazo)   { const v = round2(baseConTope * 13); indemAgravada += v; agravantesList.push({nombre:'Agrav. maternidad (art. 178+182 LCT — 13 sueldos)', val:v}); }
-    if (agMatrimonio) { const v = round2(baseConTope * 13); indemAgravada += v; agravantesList.push({nombre:'Agrav. matrimonio (art. 182 LCT — 13 sueldos)', val:v}); }
-    if (agGremial)    { const v = round2(baseConTope * 13); indemAgravada += v; agravantesList.push({nombre:'Agrav. representante gremial (Ley 23.551 art. 52)', val:v}); }
-    if (agDiscrim)    { const v = round2(indemAntig * (agDiscrimPct/100)); indemAgravada += v; agravantesList.push({nombre:`Agrav. acto discriminatorio ${agDiscrimPct}% (Ley 27.742 art. 245 bis)`, val:v}); }
+    if (agEmbarazo) { const v = round2(baseConTope * 13); indemAgravada += v; agravantesList.push({ nombre: 'Agrav. maternidad (art. 178+182 LCT — 13 sueldos)', val: v }); }
+    if (agMatrimonio) { const v = round2(baseConTope * 13); indemAgravada += v; agravantesList.push({ nombre: 'Agrav. matrimonio (art. 182 LCT — 13 sueldos)', val: v }); }
+    if (agGremial) { const v = round2(baseConTope * 13); indemAgravada += v; agravantesList.push({ nombre: 'Agrav. representante gremial (Ley 23.551 art. 52)', val: v }); }
+    if (agDiscrim) { const v = round2(indemAntig * (agDiscrimPct / 100)); indemAgravada += v; agravantesList.push({ nombre: `Agrav. acto discriminatorio ${agDiscrimPct}% (Ley 27.742 art. 245 bis)`, val: v }); }
   }
   const sacAgravada = round2(indemAgravada / sacDiv);
 
@@ -964,42 +977,42 @@ function calcFinal() {
   const rows = [];
   rows.push({ seccion: 'LIQUIDACIÓN COMÚN' });
   rows.push({
-    lsd:'110000', codigo:'R1001', label:`Sueldo proporcional mes`, cantidad:`${diasMes} días`,
-    baseCalc: round2(remFijos/divisor), val: sueldoProp, tipo:'rem', show: sueldoProp > 0
+    lsd: '110000', codigo: 'R1001', label: `Sueldo proporcional mes`, cantidad: `${diasMes} días`,
+    baseCalc: round2(remFijos / divisor), val: sueldoProp, tipo: 'rem', show: sueldoProp > 0
   });
   rows.push({
-    lsd:'120000', codigo:'R1200', label:`SAC proporcional`, cantidad:`${mesesSac.toFixed(2)}/6 m`,
-    baseCalc: baseSac, val: sacProp, tipo:'rem', show: sacProp > 0
+    lsd: '120000', codigo: 'R1200', label: `SAC proporcional`, cantidad: `${mesesSac.toFixed(2)}/6 m`,
+    baseCalc: baseSac, val: sacProp, tipo: 'rem', show: sacProp > 0
   });
   rows.push({
-    lsd:'520012', codigo:'N3002', label:`Vacaciones no gozadas`, cantidad:`${diasVac} días`,
-    baseCalc: baseCalculoSinTope, val: vacNoGoz, tipo:'noRemIndem', show: vacNoGoz > 0
+    lsd: '520012', codigo: 'N3002', label: `Vacaciones no gozadas`, cantidad: `${diasVac} días`,
+    baseCalc: baseCalculoSinTope, val: vacNoGoz, tipo: 'noRemIndem', show: vacNoGoz > 0
   });
   rows.push({
-    lsd:'520018', codigo:'N3003', label:'SAC s/Vacaciones no gozadas', cantidad:'',
-    baseCalc: vacNoGoz, val: sacVacNoGoz, tipo:'noRemIndem', show: sacVacNoGoz > 0
+    lsd: '520018', codigo: 'N3003', label: 'SAC s/Vacaciones no gozadas', cantidad: '',
+    baseCalc: vacNoGoz, val: sacVacNoGoz, tipo: 'noRemIndem', show: sacVacNoGoz > 0
   });
 
   if (causal.preaviso || causal.integracion) {
     rows.push({ seccion: 'PREAVISO E INTEGRACIÓN' });
     if (causal.preaviso) {
       rows.push({
-        lsd:'520015', codigo:'N3000', label:`Preaviso${preavisoAutomatico ? ' (auto ley)' : ' (manual)'}`,
-        cantidad:`${mesesPreaviso} m`, baseCalc: baseCalculoSinTope, val: preaviso, tipo:'noRemIndem', show: true
+        lsd: '520015', codigo: 'N3000', label: `Preaviso${preavisoAutomatico ? ' (auto ley)' : ' (manual)'}`,
+        cantidad: `${mesesPreaviso} m`, baseCalc: baseCalculoSinTope, val: preaviso, tipo: 'noRemIndem', show: true
       });
       rows.push({
-        lsd:'520017', codigo:'N3001', label:'SAC s/Preaviso', cantidad:'',
-        baseCalc: preaviso, val: sacPreaviso, tipo:'noRemIndem', show: sacPreaviso > 0
+        lsd: '520017', codigo: 'N3001', label: 'SAC s/Preaviso', cantidad: '',
+        baseCalc: preaviso, val: sacPreaviso, tipo: 'noRemIndem', show: sacPreaviso > 0
       });
     }
     if (causal.integracion) {
       rows.push({
-        lsd:'520016', codigo:'N3004', label:'Integración mes de despido',
-        cantidad:`${diasIntegracion} días`, baseCalc: baseCalculoSinTope, val: integracion, tipo:'noRemIndem', show: integracion > 0
+        lsd: '520016', codigo: 'N3004', label: 'Integración mes de despido',
+        cantidad: `${diasIntegracion} días`, baseCalc: baseCalculoSinTope, val: integracion, tipo: 'noRemIndem', show: integracion > 0
       });
       rows.push({
-        lsd:'520017', codigo:'N3005', label:'SAC s/Integración', cantidad:'',
-        baseCalc: integracion, val: sacIntegracion, tipo:'noRemIndem', show: sacIntegracion > 0
+        lsd: '520017', codigo: 'N3005', label: 'SAC s/Integración', cantidad: '',
+        baseCalc: integracion, val: sacIntegracion, tipo: 'noRemIndem', show: sacIntegracion > 0
       });
     }
   }
@@ -1008,22 +1021,22 @@ function calcFinal() {
     const etiquetaArt = causal.indem245 === 0.5 ? 'ART. 247 LCT (50% del 245)' : 'ART. 245 LCT';
     rows.push({ seccion: `INDEMNIZACIÓN POR ANTIGÜEDAD — ${etiquetaArt}` });
     rows.push({
-      lsd:'520014', codigo:'N3006',
-      label:`Indemnización por antigüedad`,
-      cantidad:`${antig.paraIndem245} años × ${causal.indem245 === 1 ? '1' : '½'} base`,
-      baseCalc: baseConTope, val: indemAntig, tipo:'noRemIndem', show: true
+      lsd: '520014', codigo: 'N3006',
+      label: `Indemnización por antigüedad`,
+      cantidad: `${antig.paraIndem245} años × ${causal.indem245 === 1 ? '1' : '½'} base`,
+      baseCalc: baseConTope, val: indemAntig, tipo: 'noRemIndem', show: true
     });
   }
 
   if (agravantesList.length > 0) {
     rows.push({ seccion: 'INDEMNIZACIÓN AGRAVADA' });
     agravantesList.forEach(a => rows.push({
-      lsd:'520011', codigo:'N3007', label: a.nombre, cantidad:'',
-      baseCalc: baseConTope, val: a.val, tipo:'noRemIndem', show: true
+      lsd: '520011', codigo: 'N3007', label: a.nombre, cantidad: '',
+      baseCalc: baseConTope, val: a.val, tipo: 'noRemIndem', show: true
     }));
     if (sacAgravada > 0) rows.push({
-      lsd:'52011', codigo:'N3008', label: 'SAC s/Indem. agravada', cantidad:'',
-      baseCalc: indemAgravada, val: sacAgravada, tipo:'noRemIndem', show: true
+      lsd: '52011', codigo: 'N3008', label: 'SAC s/Indem. agravada', cantidad: '',
+      baseCalc: indemAgravada, val: sacAgravada, tipo: 'noRemIndem', show: true
     });
   }
 
@@ -1036,10 +1049,10 @@ function calcFinal() {
   );
 
   rows.push({ seccion: 'TOTALES' });
-  rows.push({ label:'Total Remunerativos', val: totalRem, tipo:'subtotal', show: true });
-  if (totalNoRem > 0) rows.push({ label:'Total No Remunerativos', val: totalNoRem, tipo:'subtotal', show: true });
-  rows.push({ label:'Total No Remunerativos Indemnizatorios', val: totalNoRemIndem, tipo:'subtotal', show: true });
-  rows.push({ label:'TOTAL ESTIMADO', val: total, isTotal: true });
+  rows.push({ label: 'Total Remunerativos', val: totalRem, tipo: 'subtotal', show: true });
+  if (totalNoRem > 0) rows.push({ label: 'Total No Remunerativos', val: totalNoRem, tipo: 'subtotal', show: true });
+  rows.push({ label: 'Total No Remunerativos Indemnizatorios', val: totalNoRemIndem, tipo: 'subtotal', show: true });
+  rows.push({ label: 'TOTAL ESTIMADO', val: total, isTotal: true });
 
   // Render pantalla: usa 2 columnas simples (concepto + valor)
   document.getElementById('finalBreakdown').innerHTML = rows.filter(r => r.seccion || r.show !== false).map(r => {
@@ -1060,7 +1073,7 @@ function calcFinal() {
 
   // Deshabilitar agravantes si la causal no admite
   const disableAg = causal.indem245 === 0;
-  ['fAgEmbarazo','fAgMatrimonio','fAgGremial','fAgDiscrim','fAgDiscrimPct'].forEach(id => {
+  ['fAgEmbarazo', 'fAgMatrimonio', 'fAgGremial', 'fAgDiscrim', 'fAgDiscrimPct'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.disabled = disableAg;
   });
@@ -1085,15 +1098,15 @@ function calcFinal() {
 // ═══════════════════════════════════════════════════════════════════════════
 function buildPDF(data) {
   const now = new Date();
-  const fechaEmision = now.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'});
-  const horaEmision  = now.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
-  const referencia   = 'KLP-' + now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + Math.floor(Math.random()*900+100);
+  const fechaEmision = now.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const horaEmision = now.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+  const referencia = 'KLP-' + now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + Math.floor(Math.random() * 900 + 100);
   const esM = data.tipo === 'mensual';
 
   // ── Render de filas con columnas estilo Excel de Marcia ──────────────
   const filas = (data.rows || []).map(r => {
     // Fila de sección
-    if (r.seccion) return `<tr><td colspan="${esM?7:6}" style="background:#eef2f7;font-weight:700;color:#0b4a6e;padding:6px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-top:2px solid #0b4a6e;">${r.seccion}</td></tr>`;
+    if (r.seccion) return `<tr><td colspan="${esM ? 7 : 6}" style="background:#eef2f7;font-weight:700;color:#0b4a6e;padding:6px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-top:2px solid #0b4a6e;">${r.seccion}</td></tr>`;
 
     const val = r.val !== undefined ? r.val : 0;
     const isTotal = esM ? (r.tipo === 'total') : r.isTotal;
@@ -1107,8 +1120,8 @@ function buildPDF(data) {
         : 'background:#f5f7fa;font-weight:600;color:#0b4a6e;';
       const valColor = isTotal ? '#22d9df' : '#0b4a6e';
       return `<tr style="${rowStyle}">
-        <td colspan="${esM?6:5}" style="padding:7px 10px; font-size:${isTotal?12:11}px;">${r.label}</td>
-        <td style="padding:7px 10px; text-align:right; font-size:${isTotal?13:11}px; font-weight:700; color:${valColor};">${money(val)}</td>
+        <td colspan="${esM ? 6 : 5}" style="padding:7px 10px; font-size:${isTotal ? 12 : 11}px;">${r.label}</td>
+        <td style="padding:7px 10px; text-align:right; font-size:${isTotal ? 13 : 11}px; font-weight:700; color:${valColor};">${money(val)}</td>
       </tr>`;
     }
 
@@ -1159,7 +1172,7 @@ function buildPDF(data) {
         <tr><td>Fondo Nacional de Empleo</td><td style="text-align:right;">${percent(data.contribGeneral.fne_pct)} · ${money(data.contribGeneral.fne)}</td><td style="text-align:right;">${percent(data.contribPyme.fne_pct)} · ${money(data.contribPyme.fne)}</td></tr>
         <tr style="background:#f9fafb;"><td style="font-weight:600;">Subtotal Seg. Social</td><td style="text-align:right; font-weight:600;">${percent(data.contribGeneral.subtotal_ss_pct)} · ${money(data.contribGeneral.subtotal_ss)}</td><td style="text-align:right; font-weight:600;">${percent(data.contribPyme.subtotal_ss_pct)} · ${money(data.contribPyme.subtotal_ss)}</td></tr>
         <tr><td>Obra Social (Ley 23.660)</td><td style="text-align:right;">${percent(data.contribGeneral.obra_social_pct)} · ${money(data.contribGeneral.obra_social)}</td><td style="text-align:right;">${percent(data.contribPyme.obra_social_pct)} · ${money(data.contribPyme.obra_social)}</td></tr>
-        <tr style="background:#0b4a6e; color:#fff;"><td style="font-weight:700;">TOTAL CONTRIBUCIONES</td><td style="text-align:right; font-weight:700; color:${data.regimenAct==='General'?'#22d9df':'#a0c4d8'};">${percent(data.contribGeneral.total_pct)} · ${money(data.contribGeneral.total)}</td><td style="text-align:right; font-weight:700; color:${data.regimenAct==='PyME'?'#22d9df':'#a0c4d8'};">${percent(data.contribPyme.total_pct)} · ${money(data.contribPyme.total)}</td></tr>
+        <tr style="background:#0b4a6e; color:#fff;"><td style="font-weight:700;">TOTAL CONTRIBUCIONES</td><td style="text-align:right; font-weight:700; color:${data.regimenAct === 'General' ? '#22d9df' : '#a0c4d8'};">${percent(data.contribGeneral.total_pct)} · ${money(data.contribGeneral.total)}</td><td style="text-align:right; font-weight:700; color:${data.regimenAct === 'PyME' ? '#22d9df' : '#a0c4d8'};">${percent(data.contribPyme.total_pct)} · ${money(data.contribPyme.total)}</td></tr>
       </table>
       <div style="font-size:10px;color:#6b7f8e;padding-top:6px;">Régimen aplicado: <strong style="color:#0b4a6e;">${data.regimenAct}</strong>. Importe a cargo del empleador. Ahorro PyME vs General: <strong style="color:#4a9030;">${money(data.contribGeneral.total - data.contribPyme.total)}</strong> por mes.</div>
     </div>` : '';
@@ -1217,10 +1230,10 @@ function buildPDF(data) {
     <table class="info-table">
       <tr><td>Razón Social / Organización</td><td>${data.empresa || '—'}</td><td>Convenio de referencia</td><td>${data.convenio || '—'}</td></tr>
       <tr><td>Tipo de liquidación</td><td>${esM ? 'Liquidación mensual' : 'Liquidación final'}</td><td>Referencia del documento</td><td>${referencia}</td></tr>
-      ${esM ? `<tr><td>Nombre del caso</td><td>${data.nombre||'—'}</td><td>Categoría</td><td>${data.categoria||'—'}</td></tr>
-              <tr><td>Básico de referencia</td><td>${money(data.basico)}</td><td>Días trabajados</td><td>${data.dias||'—'}</td></tr>
-              <tr><td>Antigüedad (años)</td><td>${data.antiguAn||0}</td><td>Versión de parámetros</td><td>${PARAMS_VERSION}</td></tr>`
-            : `<tr><td>Fecha de ingreso</td><td>${data.ingreso||'—'}</td><td>Fecha de egreso</td><td>${data.egreso||'—'}</td></tr>
+      ${esM ? `<tr><td>Nombre del caso</td><td>${data.nombre || '—'}</td><td>Categoría</td><td>${data.categoria || '—'}</td></tr>
+              <tr><td>Básico de referencia</td><td>${money(data.basico)}</td><td>Días trabajados</td><td>${data.dias || '—'}</td></tr>
+              <tr><td>Antigüedad (años)</td><td>${data.antiguAn || 0}</td><td>Versión de parámetros</td><td>${PARAMS_VERSION}</td></tr>`
+      : `<tr><td>Fecha de ingreso</td><td>${data.ingreso || '—'}</td><td>Fecha de egreso</td><td>${data.egreso || '—'}</td></tr>
               <tr><td>Versión de parámetros</td><td>${PARAMS_VERSION}</td><td>&nbsp;</td><td>&nbsp;</td></tr>`}
     </table>
 
@@ -1248,7 +1261,7 @@ function buildPDF(data) {
     <hr class="cut-line"><span class="cut-icon" style="left:0;top:-8px;">✂</span>
 
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;">
-      <div><strong>${referencia}</strong> · ${fechaEmision}<br/><span style="color:#666;">${data.empresa||'—'} · ${data.convenio||'—'}</span></div>
+      <div><strong>${referencia}</strong> · ${fechaEmision}<br/><span style="color:#666;">${data.empresa || '—'} · ${data.convenio || '—'}</span></div>
       <div style="text-align:right;">${esM ? `Neto estimado: <strong style="font-size:13px;">${money(data.neto)}</strong>` : `Total: <strong style="font-size:13px;">${money(data.total)}</strong>`}</div>
     </div>
 
@@ -1259,7 +1272,7 @@ function buildPDF(data) {
   </div>
   </body></html>`;
 
-  const win = window.open('','_blank');
+  const win = window.open('', '_blank');
   if (!win) { alert('Habilitá las ventanas emergentes para exportar el PDF.'); return; }
   win.document.write(html);
   win.document.close();
@@ -1268,7 +1281,7 @@ function buildPDF(data) {
 }
 
 function exportMensualPDF() { if (!lastMensualData) { alert('Primero calculá la liquidación mensual.'); return; } buildPDF(lastMensualData); }
-function exportFinalPDF()   { if (!lastFinalData)   { alert('Primero calculá la liquidación final.'); return; }   buildPDF(lastFinalData); }
+function exportFinalPDF() { if (!lastFinalData) { alert('Primero calculá la liquidación final.'); return; } buildPDF(lastFinalData); }
 
 function copyText(data) {
   if (!data) { alert('Primero calculá.'); return; }
@@ -1282,11 +1295,66 @@ function copyText(data) {
 }
 
 function exportJson() {
-  const blob = new Blob([JSON.stringify(params,null,2)],{type:'application/json'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
+  const blob = new Blob([JSON.stringify(params, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
   a.href = url; a.download = 'kit-laboral-params-' + PARAMS_VERSION + '.json';
   a.click(); URL.revokeObjectURL(url);
+}
+
+// Exporta el CASO COMPLETO: inputs cargados + resultado calculado + parámetros
+// aplicados + metadata de versión. Pensado para trazabilidad profesional:
+// permite reconstruir cualquier liquidación sabiendo exactamente con qué se
+// hizo y poder defenderla frente a un control o auditoría.
+function exportarCasoCompleto() {
+  // Inputs del formulario mensual
+  const $ = id => document.getElementById(id);
+  const v = id => { const el = $(id); return el ? el.value : null; };
+  const c = id => { const el = $(id); return el ? !!el.checked : false; };
+  const inputs = {
+    nombre_caso: v('mNombre'),
+    convenio: v('mConvenio'),
+    categoria: v('mCategoria'),
+    basico_editado: v('mBasico'),
+    regimen_patronal: v('mRegimenPatronal'),
+    categoria_mipyme: v('mCategoriaMipyme'),
+    antiguedad_anios: v('mAntiguedadAnios'),
+    dias_trabajados: v('mDiasTrabajados'),
+    horas_50: v('mHoras50'),
+    horas_100: v('mHoras100'),
+    feriados_no_trab: v('mFeriadosNT'),
+    feriados_trab: v('mFeriadosT'),
+    dias_enfermedad: v('mDiasEnfermedad'),
+    base_enfermedad: v('mBaseEnfermedad'),
+    comisiones_activas: c('chkComisiones')
+  };
+
+  const ahora = new Date();
+  const payload = {
+    metadata: {
+      tipo: 'caso_liquidacion_mensual',
+      app_version: APP_VERSION,
+      params_version: PARAMS_VERSION,
+      params_base_date: PARAMS_BASE_DATE,
+      last_review_date: LAST_REVIEW_DATE,
+      exportado_en: ahora.toISOString(),
+      alcance: 'Educativo y orientativo. Sujeto a revisión profesional. Validar contra normativa vigente, convenio aplicable y criterio del responsable.'
+    },
+    inputs_form: inputs,
+    resultado_calculado: lastMensualData || null,
+    parametros_aplicados: params
+  };
+
+  const slug = (inputs.nombre_caso || 'caso').toString()
+    .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'caso';
+  const stamp = ahora.toISOString().slice(0, 10);
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'caso-' + slug + '-' + stamp + '-v' + APP_VERSION + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
 }
 function importJson(file) {
   const r = new FileReader();
@@ -1301,17 +1369,19 @@ function attachEvents() {
   document.getElementById('btnCalcularMensual').addEventListener('click', calcMensual);
   document.getElementById('btnCopiarMensual').addEventListener('click', () => copyText(lastMensualData));
   document.getElementById('btnExportarMensualPDF').addEventListener('click', exportMensualPDF);
+  const btnCaso = document.getElementById('btnExportarCasoJSON');
+  if (btnCaso) btnCaso.addEventListener('click', exportarCasoCompleto);
   const mConv = document.getElementById('mConvenio');
-  const mCat  = document.getElementById('mCategoria');
+  const mCat = document.getElementById('mCategoria');
   if (mConv) mConv.addEventListener('change', onConvenioChange);
-  if (mCat)  mCat.addEventListener('change', onCategoriaChange);
+  if (mCat) mCat.addEventListener('change', onCategoriaChange);
   const chkCom = document.getElementById('chkComisiones');
   if (chkCom) chkCom.addEventListener('change', () => {
     const inp = document.getElementById('mVariables');
     if (inp) inp.disabled = !chkCom.checked;
     calcMensual();
   });
-  ['chkNraportaOS','chkNraportaSind','chkNraportaFaecys'].forEach(id => {
+  ['chkNraportaOS', 'chkNraportaSind', 'chkNraportaFaecys'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('change', calcMensual);
   });
@@ -1343,7 +1413,7 @@ function attachEvents() {
   document.getElementById('btnExportarFinalPDF').addEventListener('click', exportFinalPDF);
   document.getElementById('fTipo').addEventListener('change', calcFinal);
 
-  ['fPreavisoAuto','fVacAuto','fSacAuto'].forEach(id => {
+  ['fPreavisoAuto', 'fVacAuto', 'fSacAuto'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('change', () => {
       if (id === 'fPreavisoAuto') document.getElementById('fPreaviso').disabled = el.checked;
@@ -1353,7 +1423,7 @@ function attachEvents() {
     });
   });
 
-  ['fAgEmbarazo','fAgMatrimonio','fAgGremial','fAgDiscrim'].forEach(id => {
+  ['fAgEmbarazo', 'fAgMatrimonio', 'fAgGremial', 'fAgDiscrim'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('change', calcFinal);
   });
@@ -1363,7 +1433,7 @@ function attachEvents() {
   document.getElementById('btnGuardarParams').addEventListener('click', () => {
     document.querySelectorAll('[data-param-key]').forEach(inp => {
       const k = inp.dataset.paramKey;
-      params[k] = typeof DEFAULT_PARAMS[k] === 'number' ? Number(inp.value||0) : inp.value;
+      params[k] = typeof DEFAULT_PARAMS[k] === 'number' ? Number(inp.value || 0) : inp.value;
     });
     saveParams();
     renderAll();
@@ -1402,3 +1472,19 @@ tabSetup();
 attachEvents();
 renderAll();
 setTimeout(hideOverlay, 1000);
+
+// ─── Helpers UI movidos desde el <script> inline del HTML ──────────────────
+// Toggle de colapsables (dashboard)
+function toggleCollapsible(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('open');
+}
+// Toggle de FAQ items (pestaña Cómo usar)
+function toggleFaq(el) {
+  el.classList.toggle('open');
+}
+// Año del footer
+(function setFooterYear() {
+  const y = document.getElementById('footerYear');
+  if (y) y.textContent = new Date().getFullYear();
+})();
