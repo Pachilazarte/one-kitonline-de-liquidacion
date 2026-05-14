@@ -181,16 +181,16 @@ const PARAMS_VERSION = '2026.04';
 
 // Versión PÚBLICA de la app — editar manualmente desde el backend al publicar
 // Esta es la que se ve en el footer
-const APP_VERSION = '1.2.0';
+const APP_VERSION = '1.3.0';
 
 // Fecha base de los parámetros normativos cargados por defecto
 // (alícuotas, topes, SMVM, bases imponibles, escalas de convenio)
 // Actualizar cuando se modifiquen los DEFAULT_PARAMS por cambios normativos
-const PARAMS_BASE_DATE = 'marzo 2026';
+const PARAMS_BASE_DATE = 'Mayo 2026';
 
 // Fecha de última revisión técnica de la herramienta (formato AAAA-MM-DD)
 // Actualizar al hacer revisión normativa, fix de fórmulas o release nuevo
-const LAST_REVIEW_DATE = '2026-05-12';
+const LAST_REVIEW_DATE = '2026-05-15';
 
 const DEFAULT_PARAMS = {
   convenio_seleccionado: 'comercio',

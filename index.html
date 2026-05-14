@@ -1746,7 +1746,8 @@
                   <div class="step-num">4</div>
                   <div class="step-title">Exportá</div>
                   <div class="step-text">Bajá el <strong>recibo en PDF</strong> o copiá el resumen. Usá el
-                    <strong>Checklist</strong> para no olvidar ningún control profesional.</div>
+                    <strong>Checklist</strong> para no olvidar ningún control profesional.
+                  </div>
                 </div>
               </div>
             </div>
@@ -1900,7 +1901,8 @@
               <div class="faq-a">Son los dos esquemas de contribuciones patronales de la Ley 27.541 art. 19. El
                 <strong>Régimen General (inc. a)</strong> aplica 26,40% total. El <strong>Régimen Reducido PyME (inc.
                   b)</strong> aplica 24% total. La diferencia está en jubilación, PAMI, AAFF y FNE. La obra social es 6%
-                en ambos. La plataforma muestra los dos lado a lado para comparar el ahorro mensual.</div>
+                en ambos. La plataforma muestra los dos lado a lado para comparar el ahorro mensual.
+              </div>
             </div>
           </div>
 
@@ -2024,7 +2026,8 @@
                 <strong>orientativo</strong> y se basa en cantidad de empleados. La condición MiPyME en Argentina
                 depende también de actividad, ventas totales anuales y otros parámetros; para acceder a beneficios suele
                 ser clave el <strong>Certificado MiPyME vigente</strong>. Validá la condición real con normativa
-                aplicable antes de usar el cálculo profesionalmente.</div>
+                aplicable antes de usar el cálculo profesionalmente.
+              </div>
             </div>
 
             <div class="form-section-h">Tiempo trabajado y antigüedad</div>
@@ -2372,71 +2375,74 @@
           </p>
         </div>
 
-        <div class="card gb"
-          style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
-          <div>
-            <div class="stitle">Progreso del control</div>
-            <div class="ssub">Tildá cada punto a medida que avanzás</div>
-          </div>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <span id="checkProgress"
-              style="font-family:'Exo 2',sans-serif; font-size:0.82rem; font-weight:700; color:var(--ocean);">Cargando…</span>
-            <div style="width:130px; height:6px; background:var(--line); border-radius:10px; overflow:hidden;">
-              <div id="checkBar"
-                style="height:100%; width:0%; background:linear-gradient(90deg,var(--ocean-lt),var(--cyan)); border-radius:10px; transition:width .3s;">
+        <div class="card gb">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
+            <div>
+              <div class="stitle">Progreso del control</div>
+              <div class="ssub">Tildá cada punto a medida que avanzás</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span id="checkProgress"
+                style="font-family:'Exo 2',sans-serif; font-size:0.82rem; font-weight:700; color:var(--ocean);">Cargando…</span>
+              <div style="width:130px; height:6px; background:var(--line); border-radius:10px; overflow:hidden;">
+                <div id="checkBar"
+                  style="height:100%; width:0%; background:linear-gradient(90deg,var(--ocean-lt),var(--cyan)); border-radius:10px; transition:width .3s;">
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="cl-grid" id="checklistGrid"></div>
+          <div class="cl-grid" id="checklistGrid"></div>
+        </div>
       </div>
 
       <!-- ═══════════════ PARÁMETROS ═══════════════ -->
       <div id="tab-parametros" class="tab-panel hidden">
 
-        <div class="card gb">
-          <div class="stitle">Parámetros</div>
-          <div class="ssub">Centro de control de la plataforma</div>
-          <div class="divider"></div>
-          <p style="font-size:0.88rem; color:var(--ink-soft); line-height:1.6;">
-            Concentra <strong>todos los valores que pueden cambiar por normativa</strong>: alícuotas
-            (General y PyME), bases imponibles AFIP, SMVM, ART, SCVO, detracciones, promedios CCT, topes Ley 27.802
-            y períodos de prueba. Modificá lo que haga falta, presioná <strong>Guardar</strong>
-            y toda la plataforma se actualiza automáticamente. Podés <strong>exportar e importar</strong> los parámetros
-            como JSON para respaldarlos o compartirlos entre cursos.
-          </p>
-        </div>
+          <div class="card gb">
+            <div class="stitle">Parámetros</div>
+            <div class="ssub">Centro de control de la plataforma</div>
+            <div class="divider"></div>
+            <p style="font-size:0.88rem; color:var(--ink-soft); line-height:1.6;">
+              Concentra <strong>todos los valores que pueden cambiar por normativa</strong>: alícuotas
+              (General y PyME), bases imponibles AFIP, SMVM, ART, SCVO, detracciones, promedios CCT, topes Ley 27.802
+              y períodos de prueba. Modificá lo que haga falta, presioná <strong>Guardar</strong>
+              y toda la plataforma se actualiza automáticamente. Podés <strong>exportar e importar</strong> los
+              parámetros
+              como JSON para respaldarlos o compartirlos entre cursos.
+            </p>
+          </div>
 
-        <div class="card gb">
-          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
-            <div>
-              <div class="stitle">Acciones</div>
-              <div class="ssub">Guardar, restaurar o exportar parámetros</div>
+          <div class="card gb">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
+              <div>
+                <div class="stitle">Acciones</div>
+                <div class="ssub">Guardar, restaurar o exportar parámetros</div>
+              </div>
+              <div class="row-btns">
+                <button id="btnGuardarParams" class="btn btn-p">Guardar</button>
+                <button id="btnRestaurar" class="btn btn-g">Restaurar base</button>
+                <button id="btnExportar" class="btn btn-cy">Exportar JSON</button>
+                <label class="btn-outline-i">Importar JSON<input id="importFile" type="file" accept="application/json"
+                    style="display:none;" /></label>
+              </div>
             </div>
-            <div class="row-btns">
-              <button id="btnGuardarParams" class="btn btn-p">Guardar</button>
-              <button id="btnRestaurar" class="btn btn-g">Restaurar base</button>
-              <button id="btnExportar" class="btn btn-cy">Exportar JSON</button>
-              <label class="btn-outline-i">Importar JSON<input id="importFile" type="file" accept="application/json"
-                  style="display:none;" /></label>
+            <div class="params-banner" style="margin-top:16px;">
+              <div>
+                <div class="params-banner-left"><span class="params-banner-dot"></span><span class="params-banner-text"
+                    id="paramsBannerText">Parámetros actualizados</span></div>
+                <div class="params-banner-sub" id="paramsBannerSub">Cargando…</div>
+              </div>
+              <div id="paramsBannerVersion"
+                style="font-family:'Exo 2',sans-serif; font-size:0.7rem; color:var(--mute);">
+              </div>
             </div>
           </div>
-          <div class="params-banner" style="margin-top:16px;">
-            <div>
-              <div class="params-banner-left"><span class="params-banner-dot"></span><span class="params-banner-text"
-                  id="paramsBannerText">Parámetros actualizados</span></div>
-              <div class="params-banner-sub" id="paramsBannerSub">Cargando…</div>
-            </div>
-            <div id="paramsBannerVersion" style="font-family:'Exo 2',sans-serif; font-size:0.7rem; color:var(--mute);">
-            </div>
+
+          <div class="card">
+            <div class="p-grid" id="paramsContainer"></div>
           </div>
         </div>
-
-        <div class="card">
-          <div class="p-grid" id="paramsContainer"></div>
-        </div>
-      </div>
     </main>
   </div>
 
